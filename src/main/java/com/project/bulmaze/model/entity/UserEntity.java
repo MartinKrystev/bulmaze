@@ -1,0 +1,181 @@
+package com.project.bulmaze.model.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "users")
+public class UserEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    @Column
+    private String country;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Email
+    @Column
+    private String email;
+
+    @Column(nullable = false)
+    private int score;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<SeasonEntity> seasons;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<AchievementEntity> achievements;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<UserRoleEntity> roles = new ArrayList<>();
+
+    private Long userProgress;
+
+    public UserEntity() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public UserEntity setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public UserEntity setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public UserEntity setCountry(String country) {
+        this.country = country;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UserEntity setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public UserEntity setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public UserEntity setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public UserEntity setScore(int score) {
+        this.score = score;
+        return this;
+    }
+
+    public List<SeasonEntity> getSeasons() {
+        return seasons;
+    }
+
+    public UserEntity setSeasons(List<SeasonEntity> seasons) {
+        this.seasons = seasons;
+        return this;
+    }
+
+    public List<AchievementEntity> getAchievements() {
+        return achievements;
+    }
+
+    public UserEntity setAchievements(List<AchievementEntity> achievements) {
+        this.achievements = achievements;
+        return this;
+    }
+
+    public List<UserRoleEntity> getRoles() {
+        return roles;
+    }
+
+    public UserEntity setRoles(List<UserRoleEntity> roles) {
+        this.roles = roles;
+        return this;
+    }
+
+    public UserEntity addRole(UserRoleEntity role) {
+        this.roles.add(role);
+        return this;
+    }
+
+    public Long getUserProgress() {
+        return userProgress;
+    }
+
+    public UserEntity setUserProgress(Long userProgress) {
+        this.userProgress = userProgress;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", country='" + country + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + (password != null ? "[PROVIDED]" : "[N/A]") + '\'' +
+                ", email='" + email + '\'' +
+                ", score=" + score +
+                ", seasons=" + seasons +
+                ", achievements=" + achievements +
+                ", roles=" + roles +
+                '}';
+    }
+}
