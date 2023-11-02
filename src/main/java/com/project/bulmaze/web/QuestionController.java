@@ -32,13 +32,11 @@ public class QuestionController {
     @GetMapping("/questions")
     public String getQuestion(Model model, Principal principal) {
         UserDTO user = this.userService.findByUsername(principal.getName());
-        QuestionDTO question = this.questionService.askQuestion(principal);
         List<QuestionDTO> allQuestions = this.questionService.allQuestions();
 
-        model.addAttribute("user", user);
-        model.addAttribute("question", question);
         model.addAttribute("allQuestions", allQuestions);
-        return "questions";
+        model.addAttribute("user", user);
+        return "all-questions";
     }
 
     @GetMapping("/questions/{id}")

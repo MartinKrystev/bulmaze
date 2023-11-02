@@ -34,6 +34,7 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionDTO askQuestion(Principal principal) {
         String username = principal.getName();
         Optional<UserEntity> byUsername = this.userRepository.findByUsername(username);
+
         Long currUserProgress = 0L;
         if (byUsername.isPresent()) {
             currUserProgress = byUsername.get().getUserProgress();
@@ -41,7 +42,6 @@ public class QuestionServiceImpl implements QuestionService {
             this.userRepository.save(byUsername.get());
         }
 
-//        assert currUserProgress != null;
         Optional<QuestionEntity> optById = this.questionRepository.findById(currUserProgress);
         QuestionDTO question = new QuestionDTO();
         if (optById.isPresent()) {
