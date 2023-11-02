@@ -39,13 +39,6 @@ public class InitDB implements CommandLineRunner {
         initUsers();
         initSeasons();
 
-//        QuestionEntity testQuestion = new QuestionEntity()
-//                .setAsk("sanflja")
-//                .setDescription("dsalghdjahdjag")
-//                .setImageUrl("akijgfdolahdglda")
-//                .setName("name");
-//
-//        System.out.println();
     }
 
     private void initRoles() {
@@ -73,6 +66,7 @@ public class InitDB implements CommandLineRunner {
                 .setEmail("admin@test.com")
                 .setCountry("Bulgaria")
                 .setUsername("admin")
+                .setScore(0)
                 .setPassword(passwordEncoder.encode("testpass"))
                 .setRoles(this.userRoleRepository.findAll());
 
@@ -89,6 +83,7 @@ public class InitDB implements CommandLineRunner {
                 .setEmail("moderator@test.com")
                 .setCountry("Bulgaria")
                 .setUsername("moderator")
+                .setScore(0)
                 .setPassword(passwordEncoder.encode("testpass"))
                 .setRoles(List.of(moderatorRole));
 
@@ -102,6 +97,7 @@ public class InitDB implements CommandLineRunner {
                 .setEmail("user@test.com")
                 .setCountry("Japan")
                 .setUsername("user")
+                .setScore(0)
                 .setPassword(passwordEncoder.encode("testpass"));
 
         userRepository.save(commonUser);
