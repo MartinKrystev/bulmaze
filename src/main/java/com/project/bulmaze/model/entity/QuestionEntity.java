@@ -5,35 +5,25 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "questions")
 public class QuestionEntity {
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private String name;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     private String description;
-
     @Column(nullable = false)
     private String ask;
-
     @Column(nullable = false, name = "image_url")
     private String imageUrl;
-
     @OneToOne
     private AnswerEntity answer;
-
     @OneToOne
     private ClueEntity clue;
-
     @OneToOne
     private StoryEntity story;
+    @OneToOne
+    private OptionsEntity options;
 
     public QuestionEntity() {
     }
@@ -107,6 +97,15 @@ public class QuestionEntity {
 
     public QuestionEntity setStory(StoryEntity story) {
         this.story = story;
+        return this;
+    }
+
+    public OptionsEntity getOptions() {
+        return options;
+    }
+
+    public QuestionEntity setOptions(OptionsEntity options) {
+        this.options = options;
         return this;
     }
 }

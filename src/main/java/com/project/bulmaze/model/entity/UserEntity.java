@@ -45,6 +45,9 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles = new ArrayList<>();
 
+    @OneToMany
+    private List<QuestionEntity> answeredQuestions;
+
     private Long userProgress;
 
     public UserEntity() {
@@ -160,6 +163,20 @@ public class UserEntity {
 
     public UserEntity setUserProgress(Long userProgress) {
         this.userProgress = userProgress;
+        return this;
+    }
+
+    public List<QuestionEntity> getAnsweredQuestions() {
+        return answeredQuestions;
+    }
+
+    public UserEntity setAnsweredQuestions(List<QuestionEntity> answeredQuestions) {
+        this.answeredQuestions = answeredQuestions;
+        return this;
+    }
+
+    public UserEntity addAnsweredQuestion(QuestionEntity question) {
+        this.answeredQuestions.add(question);
         return this;
     }
 
