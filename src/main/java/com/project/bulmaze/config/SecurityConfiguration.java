@@ -26,6 +26,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/scss", "/resources").permitAll()
                                 .requestMatchers("/", "/users/register", "/users/login", "/users/login-error", "/users/logout").permitAll()
                                 .requestMatchers("/index").permitAll()
+                                .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
                 ).formLogin(
                         formLogin -> {
@@ -67,13 +68,4 @@ public class SecurityConfiguration {
         return new ModelMapper();
     }
 
-
-    //    Security Context Holder
-//    @Bean
-//    public SecurityContextRepository securityContextRepository() {
-//        return new DelegatingSecurityContextRepository(
-//                new RequestAttributeSecurityContextRepository(),
-//                new HttpSessionSecurityContextRepository()
-//        );
-//    }
 }
