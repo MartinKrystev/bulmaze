@@ -57,7 +57,7 @@
                 <div class="btn-sm-square rounded-circle bg-primary me-2">
                     <small class="fa fa-envelope-open text-white"></small>
                 </div>
-                <small>info@bulmaze.com</small>
+                <small>bulmazebg@gmail.com</small>
             </div>
         </div>
         <div class="col-lg-6 text-end">
@@ -103,8 +103,9 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto py-4 py-lg-0">
             <a th:href="@{/play}" class="nav-item nav-link active">PLAY</a>
+            <a th:href="@{/how-to-play}" class="nav-item nav-link">How to play</a>
             <a th:href="@{/index}" class="nav-item nav-link">Home</a>
-            <a th:href="@{/about}" class="nav-item nav-link">About</a>
+            <a th:href="@{/about}" class="nav-item nav-link">About Us</a>
             <a th:href="@{/scoreboard}" class="nav-item nav-link">Scoreboard</a>
             <a th:href="@{/all-questions}" class="nav-item nav-link">Questions</a>
             <a th:href="@{/faq}" class="nav-item nav-link">FAQ</a>
@@ -128,7 +129,7 @@
 
 <!--Footer Start-->
 <footer>
-    <div class="container-fluid bg-dark text-secondary footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid bg-dark text-secondary footer mt-2 py-2 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
@@ -136,46 +137,30 @@
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Alexander Nevsky Square, Sofia, Bulgaria
                     </p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@bulmaze.com</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i
-                                class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i
-                                class="fab fa-youtube"></i></a>
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i
-                                class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>bulmazebg@gmail.com</p>
+<!--                    <div class="d-flex pt-2">-->
+<!--                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i-->
+<!--                                class="fab fa-twitter"></i></a>-->
+<!--                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i-->
+<!--                                class="fab fa-facebook-f"></i></a>-->
+<!--                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i-->
+<!--                                class="fab fa-youtube"></i></a>-->
+<!--                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i-->
+<!--                                class="fab fa-linkedin-in"></i></a>-->
+<!--                    </div>-->
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-light mb-4">Partners</h5>
                     <a class="btn btn-link" href="">Company 1</a>
                     <a class="btn btn-link" href="">Company 2</a>
                     <a class="btn btn-link" href="">Company 3</a>
-                    <a class="btn btn-link" href="">Company 4</a>
-                    <a class="btn btn-link" href="">Company 5</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-light mb-4">Quick Links</h5>
-                    <a class="btn btn-link" href="about">About Us</a>
-                    <a class="btn btn-link" href="contact">Contact Us</a>
-                    <a class="btn btn-link" href="">Our Services</a>
-                    <a class="btn btn-link" href="">Terms & Condition</a>
-                    <a class="btn btn-link" href="">Support</a>
+                    <a class="btn btn-link" th:href="@{/about}">About Us</a>
+                    <a class="btn btn-link" th:href="@{/contact}">Contact Us</a>
+                    <a class="btn btn-link" th:href="@{/terms-conditions}">Terms & Condition</a>
                 </div>
-<!--                <div class="col-lg-3 col-md-6">-->
-<!--                    <h5 class="text-light mb-4">Newsletter</h5>-->
-<!--                    <p>Sign up to receive email updates on new product announcements, special promotions, gifts, sales-->
-<!--                        and more.</p>-->
-<!--                    <div class="position-relative w-100">-->
-<!--                        <input class="form-control bg-transparent border-secondary w-100 py-3 ps-4 pe-5" type="text"-->
-<!--                               placeholder="Your email">-->
-<!--                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">-->
-<!--                            SignUp-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
         </div>
     </div>
