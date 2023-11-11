@@ -19,13 +19,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-public class TestController {
+public class HomeController {
     private final FaqService faqService;
     private final UserService userService;
     private final NewsletterService newsletterService;
     private final InquiryService inquiryService;
 
-    public TestController(FaqService faqService, UserService userService, NewsletterService newsletterService, InquiryService inquiryService) {
+    public HomeController(FaqService faqService, UserService userService, NewsletterService newsletterService, InquiryService inquiryService) {
         this.faqService = faqService;
         this.userService = userService;
         this.newsletterService = newsletterService;

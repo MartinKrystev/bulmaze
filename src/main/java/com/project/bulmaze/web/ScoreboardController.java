@@ -9,11 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ScoreBoardController {
+public class ScoreboardController {
     private final UserService userService;
 
     @Autowired
-    public ScoreBoardController(UserService userService) {
+    public ScoreboardController(UserService userService) {
         this.userService = userService;
     }
 
