@@ -25,7 +25,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 .requestMatchers("/scss", "/resources").permitAll()
                                 .requestMatchers("/", "/users/register", "/users/login", "/users/login-error", "/users/logout").permitAll()
-                                .requestMatchers("/index").permitAll()
+                                .requestMatchers("/index", "/about", "/faq", "/contact").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
                 ).formLogin(

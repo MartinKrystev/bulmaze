@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -35,19 +36,30 @@ public class InitDB implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        initSeasons();
         initRoles();
         initUsers();
-        initSeasons();
+    }
 
+    private void initSeasons() {
+        if (this.seasonRepository.count() == 0) {
+            SeasonEntity season = new SeasonEntity()
+                    .setName("Sofia Summer 2024")
+                    .setStartDate(LocalDate.of(2024, 4, 21))
+                    .setEndDate(LocalDate.of(2024, 9, 21));
+            this.seasonRepository.save(season);
+        }
     }
 
     private void initRoles() {
         if (this.userRoleRepository.count() == 0) {
             UserRoleEntity adminRole = new UserRoleEntity().setRole(UserRoleEnum.ADMIN);
             UserRoleEntity moderatorRole = new UserRoleEntity().setRole(UserRoleEnum.MODERATOR);
+            UserRoleEntity userRole = new UserRoleEntity().setRole(UserRoleEnum.USER);
 
             this.userRoleRepository.save(adminRole);
             this.userRoleRepository.save(moderatorRole);
+            this.userRoleRepository.save(userRole);
         }
     }
 
@@ -60,6 +72,7 @@ public class InitDB implements CommandLineRunner {
     }
 
     private void initAdmin() {
+        List<UserRoleEntity> all = this.userRoleRepository.findAll();
         UserEntity adminUser = new UserEntity()
                 .setFirstName("Admin")
                 .setLastName("Adminov")
@@ -68,7 +81,9 @@ public class InitDB implements CommandLineRunner {
                 .setUsername("admin")
                 .setScore(0)
                 .setPassword(passwordEncoder.encode("testpass"))
-                .setRoles(this.userRoleRepository.findAll());
+                .setAnsweredQuestions(new ArrayList<>())
+                .setRoles(all)
+                .setSeasons(this.seasonRepository.findAll());
 
         this.userRepository.save(adminUser);
     }
@@ -85,12 +100,17 @@ public class InitDB implements CommandLineRunner {
                 .setUsername("moderator")
                 .setScore(0)
                 .setPassword(passwordEncoder.encode("testpass"))
-                .setRoles(List.of(moderatorRole));
+                .setAnsweredQuestions(new ArrayList<>())
+                .setRoles(List.of(moderatorRole))
+                .setSeasons(this.seasonRepository.findAll());
 
-        userRepository.save(moderatorUser);
+        this.userRepository.save(moderatorUser);
     }
 
     private void initCommonUser() {
+        UserRoleEntity userRole = this.userRoleRepository
+                .findUserRoleEntityByRole(UserRoleEnum.USER).orElseThrow();
+
         UserEntity commonUser = new UserEntity()
                 .setFirstName("User")
                 .setLastName("Userov")
@@ -98,21 +118,12 @@ public class InitDB implements CommandLineRunner {
                 .setCountry("Japan")
                 .setUsername("user")
                 .setScore(0)
-                .setPassword(passwordEncoder.encode("testpass"));
+                .setPassword(passwordEncoder.encode("testpass"))
+                .setAnsweredQuestions(new ArrayList<>())
+                .setRoles(List.of(userRole))
+                .setSeasons(this.seasonRepository.findAll());
 
-        userRepository.save(commonUser);
+        this.userRepository.save(commonUser);
     }
-
-    private void initSeasons() {
-        if (this.seasonRepository.count() == 0) {
-            SeasonEntity season = new SeasonEntity()
-                    .setName("Sofia Summer 2024")
-                    .setStartDate(LocalDate.of(2024, 4, 21))
-                    .setEndDate(LocalDate.of(2024, 9, 21));
-            this.seasonRepository.save(season);
-        }
-    }
-
-
 
 }
