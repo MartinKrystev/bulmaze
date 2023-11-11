@@ -1,5 +1,6 @@
 package com.project.bulmaze.service.impl;
 
+import com.project.bulmaze.model.dto.AnswerDTO;
 import com.project.bulmaze.model.dto.FirstAnswerDTO;
 import com.project.bulmaze.model.entity.AnswerEntity;
 import com.project.bulmaze.repository.AnswerRepository;
@@ -27,5 +28,18 @@ public class AnswerServiceImpl implements AnswerService {
 
 //        if (optById.get().getDescription() = firstAnswerDTO.getAnswer())
         return true;
+    }
+
+    @Override
+    public AnswerDTO getAnswer(Long id) {
+        Optional<AnswerEntity> optAnswer = this.answerRepository.findById(id);
+        return optAnswer.map(answerEntity -> new AnswerDTO()
+                .setName(answerEntity.getName())
+                .setDescription(answerEntity.getDescription())).orElse(null);
+    }
+
+    @Override
+    public boolean compareAnswers(String correctAnswer, String givenAnswer) {
+        return correctAnswer.equals(givenAnswer);
     }
 }
