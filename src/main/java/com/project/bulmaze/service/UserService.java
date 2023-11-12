@@ -15,4 +15,5 @@ public interface UserService {
     List<UserDTO> getAllUsers();
     UserDTO findById(Long id);
     UserScoreboardWrapperDTO getScoreboardResults();
+    void addWrongAnswer(UserDTO user, AnswerDTO answer);
 }
