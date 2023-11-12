@@ -1,11 +1,9 @@
 package com.project.bulmaze.service.impl;
 
 import com.project.bulmaze.model.dto.*;
-import com.project.bulmaze.model.entity.AnswerEntity;
 import com.project.bulmaze.model.entity.GivenAnswerEntity;
 import com.project.bulmaze.model.entity.QuestionEntity;
 import com.project.bulmaze.model.entity.UserEntity;
-import com.project.bulmaze.repository.AnswerRepository;
 import com.project.bulmaze.repository.GivenAnswerRepository;
 import com.project.bulmaze.repository.QuestionRepository;
 import com.project.bulmaze.repository.UserRepository;
@@ -15,28 +13,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
-    private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
     private final GivenAnswerRepository givenAnswerRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, AnswerRepository answerRepository, QuestionRepository questionRepository, GivenAnswerRepository givenAnswerRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           PasswordEncoder passwordEncoder,
+                           ModelMapper modelMapper,
+                           QuestionRepository questionRepository,
+                           GivenAnswerRepository givenAnswerRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
-        this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
         this.givenAnswerRepository = givenAnswerRepository;
     }
-
 
     @Override
     public boolean register(UserRegisterDTO userRegisterDTO) {
@@ -79,18 +79,6 @@ public class UserServiceImpl implements UserService {
             if (userDTO.getUserProgress() == null) {
                 userDTO.setUserProgress(0L);
             }
-
-//            List<AnswerDTO> answerDTOS = new ArrayList<>();
-            //TODO: can't find AnswerEntity correctly
-
-//            List<QuestionEntity> answeredQuestions = byUsername.get().getAnsweredQuestions();
-//            for (QuestionEntity a : answeredQuestions) {
-//                givenAnswers.add(this.modelMapper.map(a.getAnswer(), GivenAnswerDTO.class));
-//            }
-
-//            givenAnswers.forEach(a -> {
-//                givenAnswers.add(this.modelMapper.map(a, GivenAnswerDTO.class));
-//            });
 
             List<GivenAnswerDTO> givenAnswersDTO = givenAnswers
                     .stream()
@@ -151,12 +139,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> getAllUsers() {
         List<UserEntity> all = this.userRepository.findAll();
-        List<UserDTO> userDTOList = all
+
+        return all
                 .stream()
                 .map(u -> modelMapper.map(u, UserDTO.class))
                 .toList();
-
-        return userDTOList;
     }
 
     @Override
@@ -185,6 +172,5 @@ public class UserServiceImpl implements UserService {
 
         return allWrapperDTO;
     }
-
 
 }
