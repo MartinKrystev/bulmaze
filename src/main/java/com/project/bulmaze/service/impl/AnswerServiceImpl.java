@@ -8,6 +8,8 @@ import com.project.bulmaze.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,12 +24,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public boolean firstAnswer(FirstAnswerDTO firstAnswerDTO) {
         Optional<AnswerEntity> optById = this.answerRepository.findById(1L);
-        if (optById.isEmpty()) {
-            return false;
-        }
-
-//        if (optById.get().getDescription() = firstAnswerDTO.getAnswer())
-        return true;
+        return optById.isPresent();
     }
 
     @Override
@@ -41,5 +38,17 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public boolean compareAnswers(String correctAnswer, String givenAnswer) {
         return correctAnswer.equals(givenAnswer);
+    }
+
+    @Override
+    public List<AnswerDTO> getAllGivenAnswers(String name) {
+        List<AnswerEntity> all = this.answerRepository.findAll();
+        List<AnswerDTO> answerDTOS = new ArrayList<>();
+        all.forEach(a -> {
+            AnswerDTO answerDTO = new AnswerDTO(a.getName(), a.getDescription());
+            answerDTOS.add(answerDTO);
+        });
+
+        return answerDTOS;
     }
 }
