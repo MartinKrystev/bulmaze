@@ -1,5 +1,5 @@
 package com.project.bulmaze.model.enums;
 
 public enum UserRoleEnum {
-  ADMIN, MODERATOR
+  ADMIN, MODERATOR, USER
 }
