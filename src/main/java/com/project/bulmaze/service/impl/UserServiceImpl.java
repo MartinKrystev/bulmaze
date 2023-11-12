@@ -2,9 +2,11 @@ package com.project.bulmaze.service.impl;
 
 import com.project.bulmaze.model.dto.*;
 import com.project.bulmaze.model.entity.AnswerEntity;
+import com.project.bulmaze.model.entity.GivenAnswerEntity;
 import com.project.bulmaze.model.entity.QuestionEntity;
 import com.project.bulmaze.model.entity.UserEntity;
 import com.project.bulmaze.repository.AnswerRepository;
+import com.project.bulmaze.repository.GivenAnswerRepository;
 import com.project.bulmaze.repository.QuestionRepository;
 import com.project.bulmaze.repository.UserRepository;
 import com.project.bulmaze.service.UserService;
@@ -13,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,14 +25,16 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
+    private final GivenAnswerRepository givenAnswerRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, AnswerRepository answerRepository, QuestionRepository questionRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, AnswerRepository answerRepository, QuestionRepository questionRepository, GivenAnswerRepository givenAnswerRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
+        this.givenAnswerRepository = givenAnswerRepository;
     }
 
 
@@ -70,11 +72,33 @@ public class UserServiceImpl implements UserService {
     public UserDTO findByUsername(String username) {
         Optional<UserEntity> byUsername = this.userRepository.findByUsername(username);
         if (byUsername.isPresent()) {
-            UserDTO userDTO = this.modelMapper.map(byUsername, UserDTO.class);
+            UserDTO userDTO = this.modelMapper.map(byUsername.get(), UserDTO.class);
+
+            List<GivenAnswerEntity> givenAnswers = byUsername.get().getGivenAnswers();
+
             if (userDTO.getUserProgress() == null) {
                 userDTO.setUserProgress(0L);
-                userDTO.setAnswers(new ArrayList<>());
             }
+
+//            List<AnswerDTO> answerDTOS = new ArrayList<>();
+            //TODO: can't find AnswerEntity correctly
+
+//            List<QuestionEntity> answeredQuestions = byUsername.get().getAnsweredQuestions();
+//            for (QuestionEntity a : answeredQuestions) {
+//                givenAnswers.add(this.modelMapper.map(a.getAnswer(), GivenAnswerDTO.class));
+//            }
+
+//            givenAnswers.forEach(a -> {
+//                givenAnswers.add(this.modelMapper.map(a, GivenAnswerDTO.class));
+//            });
+
+            List<GivenAnswerDTO> givenAnswersDTO = givenAnswers
+                    .stream()
+                    .map(a -> modelMapper.map(a, GivenAnswerDTO.class))
+                    .toList();
+
+            userDTO.setAnswers(givenAnswersDTO);
+
             return userDTO;
         }
         return null;
@@ -94,8 +118,33 @@ public class UserServiceImpl implements UserService {
                 userEntity.addAnsweredQuestion(questionEntity);
                 userEntity.setScore(userEntity.getScore() + 1);
 
-                this.userRepository.saveAndFlush(userEntity);
+                Optional<GivenAnswerEntity> byDescription = this.givenAnswerRepository.findByDescription(answer.getDescription());
+                if (byDescription.isPresent()) {
+                    userEntity.addGivenAnswer(byDescription.get());
+                } else {
+                    userEntity.addGivenAnswer(new GivenAnswerEntity().setDescription(answer.getDescription()));
+                }
+
+                this.userRepository.save(userEntity);
             }
+        }
+    }
+
+    @Override
+    public void addWrongAnswer(UserDTO user, AnswerDTO answer) {
+        Optional<UserEntity> byUsername = this.userRepository.findByUsername(user.getUsername());
+
+        if (byUsername.isPresent()) {
+            UserEntity userEntity = byUsername.get();
+
+            Optional<GivenAnswerEntity> byDescription = this.givenAnswerRepository.findByDescription(answer.getDescription());
+            if (byDescription.isPresent()) {
+                userEntity.addGivenAnswer(byDescription.get());
+            } else {
+                userEntity.addGivenAnswer(new GivenAnswerEntity().setDescription(answer.getDescription()));
+            }
+
+            this.userRepository.save(userEntity);
         }
     }
 
@@ -116,7 +165,7 @@ public class UserServiceImpl implements UserService {
         if (byId.isPresent()) {
             return this.modelMapper.map(byId, UserDTO.class);
         }
-         return null;
+        return null;
     }
 
     @Override
@@ -126,8 +175,8 @@ public class UserServiceImpl implements UserService {
         List<UserScoreboardDTO> allUsersDTO = all
                 .stream()
                 .map(userEntity -> new UserScoreboardDTO()
-                .setUsername(userEntity.getUsername())
-                .setScore(userEntity.getScore()))
+                        .setUsername(userEntity.getUsername())
+                        .setScore(userEntity.getScore()))
                 .sorted((o1, o2) -> o2.getScore() - o1.getScore())
                 .toList();
 
@@ -136,5 +185,6 @@ public class UserServiceImpl implements UserService {
 
         return allWrapperDTO;
     }
+
 
 }
