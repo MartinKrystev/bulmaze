@@ -17,7 +17,7 @@ public class ReviewsApprovalScheduler {
         this.reviewService = reviewService;
     }
 
-    @Scheduled(fixedRate = 60_000)
+    @Scheduled(fixedRate = 3_600_000)
     public void approveReviews() {
         System.out.println("Triggered scheduler at " + LocalDateTime.now());
         this.reviewService.approveReviews();
