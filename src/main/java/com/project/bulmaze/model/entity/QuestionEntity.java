@@ -1,6 +1,10 @@
 package com.project.bulmaze.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 @Entity
 @Table(name = "questions")
@@ -8,13 +12,17 @@ public class QuestionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    @Size(min = 2, max = 50)
     private String name;
     @Column(nullable = false, columnDefinition = "TEXT")
+    @Size(min = 2, max = 5000)
     private String description;
     @Column(nullable = false)
+    @Size(min = 2, max = 50)
     private String ask;
     @Column(nullable = false, name = "image_url")
+    @NotBlank
     private String imageUrl;
     @OneToOne
     private AnswerEntity answer;
@@ -24,6 +32,9 @@ public class QuestionEntity {
     private StoryEntity story;
     @OneToOne
     private OptionsEntity options;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "answeredQuestions", cascade = CascadeType.MERGE)
+    private List<UserEntity> users;
 
     public QuestionEntity() {
     }
@@ -106,6 +117,15 @@ public class QuestionEntity {
 
     public QuestionEntity setOptions(OptionsEntity options) {
         this.options = options;
+        return this;
+    }
+
+    public List<UserEntity> getUsers() {
+        return users;
+    }
+
+    public QuestionEntity setUsers(List<UserEntity> users) {
+        this.users = users;
         return this;
     }
 }

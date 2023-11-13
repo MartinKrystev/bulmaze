@@ -2,6 +2,8 @@ package com.project.bulmaze.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,46 +11,41 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class UserEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "first_name", nullable = false)
+    @Size(min = 3, max = 20)
     private String firstName;
-
     @Column(name = "last_name", nullable = false)
+    @Size(min = 3, max = 20)
     private String lastName;
-
     @Column
     private String country;
-
     @Column(nullable = false, unique = true)
+    @Size(min = 3, max = 20)
     private String username;
-
     @Column(nullable = false)
     private String password;
-
     @Email
+    @NotBlank
     @Column
     private String email;
-
     @Column(nullable = false)
     private int score;
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<SeasonEntity> seasons;
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<AchievementEntity> achievements;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles = new ArrayList<>();
-
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<QuestionEntity> answeredQuestions;
-
+    @Column(name = "user_progress")
     private Long userProgress;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<GivenAnswerEntity> givenAnswers;
+    private boolean reviewSent;
 
     public UserEntity() {
     }
@@ -177,6 +174,29 @@ public class UserEntity {
 
     public UserEntity addAnsweredQuestion(QuestionEntity question) {
         this.answeredQuestions.add(question);
+        return this;
+    }
+
+    public List<GivenAnswerEntity> getGivenAnswers() {
+        return givenAnswers;
+    }
+
+    public UserEntity setGivenAnswers(List<GivenAnswerEntity> givenAnswers) {
+        this.givenAnswers = givenAnswers;
+        return this;
+    }
+
+    public UserEntity addGivenAnswer(GivenAnswerEntity givenAnswer) {
+        this.givenAnswers.add(givenAnswer);
+        return this;
+    }
+
+    public boolean isReviewSent() {
+        return reviewSent;
+    }
+
+    public UserEntity setReviewSent(boolean reviewSent) {
+        this.reviewSent = reviewSent;
         return this;
     }
 

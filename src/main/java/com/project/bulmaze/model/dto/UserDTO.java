@@ -1,5 +1,9 @@
 package com.project.bulmaze.model.dto;
 
+import com.project.bulmaze.model.entity.GivenAnswerEntity;
+
+import java.util.List;
+
 public class UserDTO {
     private Long id;
     private String firstName;
@@ -9,6 +13,9 @@ public class UserDTO {
     private String email;
     private int score;
     private Long userProgress;
+    private List<GivenAnswerDTO> answers;
+    private List<UserRoleDTO> roles;
+    private boolean reviewSent;
 
     public Long getId() {
         return id;
@@ -79,6 +86,42 @@ public class UserDTO {
 
     public UserDTO setUserProgress(Long userProgress) {
         this.userProgress = userProgress;
+        return this;
+    }
+
+    public List<GivenAnswerDTO> getAnswers() {
+        return answers;
+    }
+
+    public UserDTO setAnswers(List<GivenAnswerDTO> answers) {
+        this.answers = answers;
+        return this;
+    }
+
+    public List<UserRoleDTO> getRoles() {
+        return roles;
+    }
+
+    public UserDTO setRoles(List<UserRoleDTO> roles) {
+        this.roles = roles;
+        return this;
+    }
+
+    public String allRoles() {
+        StringBuilder sb = new StringBuilder();
+        this.roles.forEach(r -> {
+            sb.append(r.getRole().toString());
+            sb.append("  ");
+        });
+        return sb.toString();
+    }
+
+    public boolean isReviewSent() {
+        return reviewSent;
+    }
+
+    public UserDTO setReviewSent(boolean reviewSent) {
+        this.reviewSent = reviewSent;
         return this;
     }
 }

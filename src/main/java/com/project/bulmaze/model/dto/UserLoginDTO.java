@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Size;
 
 public class UserLoginDTO {
 
-    @Size(min = 2, max = 50, message = "Name should be between 1 and 50 characters.")
+    @Size(min = 3, max = 20, message = "Username should be between 3 and 20 characters.")
     private String username;
 
     @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters!")

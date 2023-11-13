@@ -83,6 +83,7 @@ public class InitDB implements CommandLineRunner {
                 .setPassword(passwordEncoder.encode("testpass"))
                 .setAnsweredQuestions(new ArrayList<>())
                 .setRoles(all)
+                .setUserProgress(0L)
                 .setSeasons(this.seasonRepository.findAll());
 
         this.userRepository.save(adminUser);
@@ -102,6 +103,7 @@ public class InitDB implements CommandLineRunner {
                 .setPassword(passwordEncoder.encode("testpass"))
                 .setAnsweredQuestions(new ArrayList<>())
                 .setRoles(List.of(moderatorRole))
+                .setUserProgress(0L)
                 .setSeasons(this.seasonRepository.findAll());
 
         this.userRepository.save(moderatorUser);
@@ -121,6 +123,7 @@ public class InitDB implements CommandLineRunner {
                 .setPassword(passwordEncoder.encode("testpass"))
                 .setAnsweredQuestions(new ArrayList<>())
                 .setRoles(List.of(userRole))
+                .setUserProgress(0L)
                 .setSeasons(this.seasonRepository.findAll());
 
         this.userRepository.save(commonUser);

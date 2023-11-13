@@ -1,11 +1,15 @@
 package com.project.bulmaze.model.dto;
 
+import java.util.UUID;
+
 public class QuestionDTO {
     private Long id;
+    private UUID uuid;
     private String name;
     private String description;
     private String ask;
     private String imageUrl;
+    private String correctAnswer;
 
     public Long getId() {
         return id;
@@ -13,6 +17,15 @@ public class QuestionDTO {
 
     public QuestionDTO setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public QuestionDTO setUuid(UUID uuid) {
+        this.uuid = uuid;
         return this;
     }
 
@@ -49,6 +62,15 @@ public class QuestionDTO {
 
     public QuestionDTO setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public QuestionDTO setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
         return this;
     }
 }
