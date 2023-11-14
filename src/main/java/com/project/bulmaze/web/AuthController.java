@@ -1,5 +1,6 @@
 package com.project.bulmaze.web;
 
+import com.project.bulmaze.email.EmailSender;
 import com.project.bulmaze.model.dto.UserRegisterDTO;
 import com.project.bulmaze.service.UserService;
 import jakarta.validation.Valid;
@@ -36,6 +37,8 @@ public class AuthController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDTO", bindingResult);
             return "redirect:/users/register";
         }
+
+        EmailSender.newUserRegisteredEmail();
         return "login";
     }
 
