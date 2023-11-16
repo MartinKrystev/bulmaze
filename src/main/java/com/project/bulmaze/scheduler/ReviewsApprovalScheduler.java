@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-
 @Component
 public class ReviewsApprovalScheduler {
 
@@ -19,7 +17,6 @@ public class ReviewsApprovalScheduler {
 
     @Scheduled(fixedRate = 3_600_000)
     public void approveReviews() {
-        System.out.println("Triggered scheduler at " + LocalDateTime.now());
         this.reviewService.approveReviews();
     }
 }
