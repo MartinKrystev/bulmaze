@@ -11,8 +11,6 @@ public class GivenAnswerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     @Column(nullable = false, columnDefinition = "TEXT")
     @Size(min = 1)
     private String description;
@@ -25,8 +23,6 @@ public class GivenAnswerEntity {
         this.id = id;
         return this;
     }
-
-
 
     public String getDescription() {
         return description;

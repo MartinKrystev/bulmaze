@@ -45,6 +45,7 @@ public class UserEntity {
     private Long userProgress;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<GivenAnswerEntity> givenAnswers;
+    @Column(name = "review_sent")
     private boolean reviewSent;
 
     public UserEntity() {
