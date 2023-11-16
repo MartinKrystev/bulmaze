@@ -35,7 +35,7 @@ public class InitDB implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         initSeasons();
         initRoles();
         initUsers();
@@ -92,6 +92,8 @@ public class InitDB implements CommandLineRunner {
     private void initModerator() {
         UserRoleEntity moderatorRole = this.userRoleRepository
                 .findUserRoleEntityByRole(UserRoleEnum.MODERATOR).orElseThrow();
+        UserRoleEntity userRole = this.userRoleRepository
+                .findUserRoleEntityByRole(UserRoleEnum.USER).orElseThrow();
 
         UserEntity moderatorUser = new UserEntity()
                 .setFirstName("Moderator")
@@ -103,6 +105,7 @@ public class InitDB implements CommandLineRunner {
                 .setPassword(passwordEncoder.encode("testpass"))
                 .setAnsweredQuestions(new ArrayList<>())
                 .setRoles(List.of(moderatorRole))
+                .setRoles(List.of(userRole))
                 .setUserProgress(0L)
                 .setSeasons(this.seasonRepository.findAll());
 
