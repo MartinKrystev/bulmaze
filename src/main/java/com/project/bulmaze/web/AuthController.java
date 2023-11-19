@@ -1,6 +1,6 @@
 package com.project.bulmaze.web;
 
-import com.project.bulmaze.email.EmailSender;
+import com.project.bulmaze.email.NewUserEmailSender;
 import com.project.bulmaze.model.dto.UserRegisterDTO;
 import com.project.bulmaze.service.UserService;
 import jakarta.validation.Valid;
@@ -38,7 +38,7 @@ public class AuthController {
             return "redirect:/users/register";
         }
 
-        EmailSender.newUserRegisteredEmail();
+        NewUserEmailSender.newUserRegisteredEmail();
         return "login";
     }
 
