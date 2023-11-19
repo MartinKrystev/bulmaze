@@ -1,7 +1,6 @@
 package com.project.bulmaze.service.impl;
 
 import com.project.bulmaze.model.dto.AnswerDTO;
-import com.project.bulmaze.model.dto.FirstAnswerDTO;
 import com.project.bulmaze.model.entity.AnswerEntity;
 import com.project.bulmaze.repository.AnswerRepository;
 import com.project.bulmaze.service.AnswerService;
@@ -19,12 +18,6 @@ public class AnswerServiceImpl implements AnswerService {
     @Autowired
     public AnswerServiceImpl(AnswerRepository answerRepository) {
         this.answerRepository = answerRepository;
-    }
-
-    @Override
-    public boolean firstAnswer(FirstAnswerDTO firstAnswerDTO) {
-        Optional<AnswerEntity> optById = this.answerRepository.findById(1L);
-        return optById.isPresent();
     }
 
     @Override
