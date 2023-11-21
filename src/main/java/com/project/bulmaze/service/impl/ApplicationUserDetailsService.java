@@ -1,4 +1,4 @@
-package com.project.bulmaze.service;
+package com.project.bulmaze.service.impl;
 
 import com.project.bulmaze.model.AppUserDetails;
 import com.project.bulmaze.model.entity.UserEntity;
