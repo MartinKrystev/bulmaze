@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +26,11 @@ public class ClueServiceImpl implements ClueService {
     public ClueDTO getClue(Long id) {
         Optional<ClueEntity> byId = this.clueRepository.findById(id);
         return byId.map(clueEntity -> this.modelMapper.map(clueEntity, ClueDTO.class)).orElse(null);
+    }
+
+    @Override
+    public List<ClueDTO> getAllClues() {
+        List<ClueEntity> all = this.clueRepository.findAll();
+        return all.stream().map(c -> modelMapper.map(c, ClueDTO.class)).toList();
     }
 }
