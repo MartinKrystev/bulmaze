@@ -104,8 +104,7 @@ public class InitDB implements CommandLineRunner {
                 .setScore(0)
                 .setPassword(passwordEncoder.encode("testpass"))
                 .setAnsweredQuestions(new ArrayList<>())
-                .setRoles(List.of(moderatorRole))
-                .setRoles(List.of(userRole))
+                .setRoles(List.of(moderatorRole, userRole))
                 .setUserProgress(0L)
                 .setSeasons(this.seasonRepository.findAll());
 
