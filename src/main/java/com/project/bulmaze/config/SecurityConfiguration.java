@@ -1,7 +1,7 @@
 package com.project.bulmaze.config;
 
 import com.project.bulmaze.repository.UserRepository;
-import com.project.bulmaze.service.ApplicationUserDetailsService;
+import com.project.bulmaze.service.impl.ApplicationUserDetailsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ public class SecurityConfiguration {
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 .requestMatchers("/scss", "/resources").permitAll()
                                 .requestMatchers("/", "/users/register", "/users/login", "/users/login-error", "/users/logout").permitAll()
-                                .requestMatchers("/index", "/about", "/faq", "/contact").permitAll()
+                                .requestMatchers("/index", "/about", "/faq", "/contact", "/how-to-play","reviews").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
                 ).formLogin(
