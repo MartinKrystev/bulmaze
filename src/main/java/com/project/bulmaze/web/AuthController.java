@@ -37,8 +37,6 @@ public class AuthController {
                     .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterDTO", bindingResult);
             return "redirect:/users/register";
         }
-
-        NewUserEmailSender.newUserRegisteredEmail();
         return "login";
     }
 
