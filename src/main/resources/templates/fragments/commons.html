@@ -10,7 +10,6 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-<!--    <link href="/favicon.ico" rel="icon">-->
     <link href="/favicon.ico" rel="icon">
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +18,7 @@
           rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -34,16 +33,16 @@
     <link href="/css/style.css" rel="stylesheet">
 </head>
 
-<!-- Spinner Start -->
+<!--Spinner-->
 <div th:fragment="spinner" id="spinner"
      class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
         <span class="sr-only">Loading...</span>
     </div>
 </div>
-<!-- Spinner End -->
+<!--EO: Spinner-->
 
-<!-- Topbar Start -->
+<!--Topbar-->
 <div th:fragment="topbar" class="container-fluid bg-dark px-5">
     <div class="row gx-4 d-none d-lg-flex">
         <div class="col-lg-6 text-start">
@@ -76,26 +75,45 @@
         </div>
     </div>
 </div>
-<!-- Topbar End -->
+<!--EO: Topbar-->
 
-<!-- Navbar Start -->
+<!--Navbar-->
 <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 px-4 px-lg-5">
     <a th:href="@{/index}" class="navbar-brand d-flex align-items-center">
         <h2 class="m-0 text-primary">BulMaze</h2>
     </a>
-    <p th:text="'Welcome, ' + ${#authentication.name}" class="m-4"></p>
 
-<!--    Add Question-->
-    <th:block sec:authorize="hasRole('MODERATOR')">
-        <a th:href="@{/add-question}" class="nav-item nav-link active">Add question</a>
+<!--    Greeting only if there is logged-in User-->
+    <th:block>
+        <th:block th:if="${#authentication.name != 'anonymousUser'}">
+            <i class="fa-solid fa-user" style="color: #0a0a0a"></i>
+            <p th:text="${#authentication.name}" class="my-4 m-lg-2 text-dark"></p>
+        </th:block>
     </th:block>
-<!--   EO: Add Question-->
 
-<!--    Change Roles-->
+    <!--Admin Panel-->
     <th:block sec:authorize="hasRole('ADMIN')">
-        <a th:href="@{/change-roles}" class="nav-item nav-link active">Change roles</a>
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin panel</a>
+            <div class="dropdown-menu rounded-0 rounded-bottom m-0">
+                <a th:href="@{/roles-show}" class="dropdown-item">Change roles</a>
+                <a th:href="@{/questions-add}" class="dropdown-item">Add question</a>
+            </div>
+        </div>
     </th:block>
-<!--   EO: Change Roles-->
+    <!--EO: Admin Panel-->
+
+    <!--Moderator Panel-->
+    <th:block sec:authorize="hasRole('MODERATOR')">
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Moderator panel</a>
+            <div class="dropdown-menu rounded-0 rounded-bottom m-0">
+                <a th:href="@{/questions-add}" class="dropdown-item">Add question</a>
+            </div>
+        </div>
+    </th:block>
+    <!--EO: Moderator Panel-->
+
 
     <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
@@ -103,13 +121,14 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto py-4 py-lg-0">
             <a th:href="@{/play}" class="nav-item nav-link active">PLAY</a>
-            <a th:href="@{/how-to-play}" class="nav-item nav-link">How to play</a>
             <a th:href="@{/index}" class="nav-item nav-link">Home</a>
-            <a th:href="@{/about}" class="nav-item nav-link">About Us</a>
+            <a th:href="@{/how-to-play}" class="nav-item nav-link">How to play</a>
             <a th:href="@{/scoreboard}" class="nav-item nav-link">Scoreboard</a>
-            <a th:href="@{/all-questions}" class="nav-item nav-link">Questions</a>
+            <a th:href="@{/questions-all}" class="nav-item nav-link">Quests</a>
             <a th:href="@{/faq}" class="nav-item nav-link">FAQ</a>
-            <a th:href="@{/contact}" class="nav-item nav-link">Contact</a>
+            <a th:href="@{/about}" class="nav-item nav-link">About Us</a>
+            <a th:href="@{/contact}" class="nav-item nav-link">Contacts</a>
+            <a th:href="@{/reviews}" class="nav-item nav-link">Reviews</a>
 
             <th:block sec:authorize="!isAuthenticated()">
                 <a th:href="@{/users/register}" class="nav-item nav-link">Register</a>
@@ -119,15 +138,32 @@
             <th:block sec:authorize="isAuthenticated()">
                 <form th:method="POST"
                       th:action="@{/users/logout}">
-                    <input type="submit" class="btn mt-lg-3" value="Logout" style="color: #161616"/>
+                    <input type="submit" class="btn mt-lg-3 rounded-pill" value="Logout" style="color: #161616"/>
                 </form>
             </th:block>
         </div>
     </div>
 </nav>
-<!-- Navbar End -->
+<!--EO: Navbar-->
 
-<!--Footer Start-->
+<!-- JavaScript Libraries -->
+<div th:fragment="scripts">
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/wow/wow.min.js"></script>
+    <script src="/js/easing/easing.min.js"></script>
+    <script src="/js/waypoints/waypoints.min.js"></script>
+    <script src="/js/counterup/counterup.min.js"></script>
+    <script src="/js/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/js/isotope/isotope.pkgd.min.js"></script>
+    <script src="/js/lightbox/js/lightbox.min.js"></script>
+    <!-- Template Javascript -->
+    <script src="/js/main.js"></script>
+</div>
+<!-- EO: JavaScript Libraries -->
+
+<!--Footer-->
 <footer>
     <div class="container-fluid bg-dark text-secondary footer mt-2 py-2 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -138,16 +174,6 @@
                     </p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>bulmazebg@gmail.com</p>
-<!--                    <div class="d-flex pt-2">-->
-<!--                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i-->
-<!--                                class="fab fa-twitter"></i></a>-->
-<!--                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i-->
-<!--                                class="fab fa-facebook-f"></i></a>-->
-<!--                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i-->
-<!--                                class="fab fa-youtube"></i></a>-->
-<!--                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i-->
-<!--                                class="fab fa-linkedin-in"></i></a>-->
-<!--                    </div>-->
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h5 class="text-light mb-4">Partners</h5>
@@ -161,8 +187,15 @@
                     <a class="btn btn-link" th:href="@{/contact}">Contact Us</a>
                     <a class="btn btn-link" th:href="@{/terms-conditions}">Terms & Condition</a>
                 </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-light mb-4">Even More Links</h5>
+                    <a class="btn btn-link" th:href="@{/faq}">FAQ</a>
+                    <a class="btn btn-link" th:href="@{/how-to-play}">Game Rules</a>
+                    <a class="btn btn-link" th:href="@{/reviews}">Reviews</a>
+                </div>
             </div>
         </div>
     </div>
 </footer>
-<!--Footer End-->
+<!--EO: Footer-->
+
