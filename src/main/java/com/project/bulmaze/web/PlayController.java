@@ -50,9 +50,9 @@ public class PlayController {
             OptionsDTO optionsDTO = this.optionsService.optionsCurrQuestion(userDTO.getUserProgress() + 1);
             ClueDTO clueDTO = this.clueService.getClue(userDTO.getUserProgress() + 1);
 
-            model.addAttribute("user", userDTO);
+            model.addAttribute("userDTO", userDTO);
             model.addAttribute("allQuestions", allQuestions);
-            model.addAttribute("question", questionDTO); //TODO: updates userProgress
+            model.addAttribute("question", questionDTO);
             model.addAttribute("options", optionsDTO);
             model.addAttribute("clueDTO", clueDTO);
         } else {

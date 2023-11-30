@@ -1,6 +1,6 @@
 package com.project.bulmaze.web;
 
-import com.project.bulmaze.model.dto.ReviewAddDTO;
+import com.project.bulmaze.model.dto.AddReviewDTO;
 import com.project.bulmaze.model.dto.ReviewDTO;
 import com.project.bulmaze.model.dto.UserDTO;
 import com.project.bulmaze.service.ReviewService;
@@ -39,31 +39,30 @@ public class ReviewController {
     @GetMapping("/review/add")
     public String getReview(Principal principal) {
         UserDTO byUsername = this.userService.findByUsername(principal.getName());
-
         if (byUsername.isReviewSent()) {
             return "review-sent";
         }
-
         return "review-add";
     }
 
     @PostMapping("/review/add")
-    public String postReview(@Valid @ModelAttribute(name = "reviewAddDTO") ReviewAddDTO reviewAddDTO,
+    public String postReview(@Valid @ModelAttribute(name = "addReviewDTO") AddReviewDTO addReviewDTO,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes,
                              Principal principal) {
 
-        if (bindingResult.hasErrors() || !this.reviewService.addReview(reviewAddDTO, principal)) {
-            redirectAttributes.addFlashAttribute("reviewAddDTO", reviewAddDTO)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.reviewAddDTO", bindingResult);
+        if (bindingResult.hasErrors() || !this.reviewService.addReview(addReviewDTO, principal)) {
+            redirectAttributes.addFlashAttribute("addReviewDTO", addReviewDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.addReviewDTO", bindingResult);
             return "redirect:/review/add";
         }
         return "review-sent";
     }
 
+
     //Model Attributes
-    @ModelAttribute(name = "reviewAddDTO")
-    public ReviewAddDTO initReviewAddDTO() {
-        return new ReviewAddDTO();
+    @ModelAttribute(name = "addReviewDTO")
+    public AddReviewDTO initReviewAddDTO() {
+        return new AddReviewDTO();
     }
 }

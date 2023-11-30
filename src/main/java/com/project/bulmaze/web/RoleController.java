@@ -2,8 +2,6 @@ package com.project.bulmaze.web;
 
 import com.project.bulmaze.model.dto.ListUserRoleDTO;
 import com.project.bulmaze.model.dto.UserDTO;
-import com.project.bulmaze.model.entity.UserRoleEntity;
-import com.project.bulmaze.repository.UserRoleRepository;
 import com.project.bulmaze.service.UserRoleService;
 import com.project.bulmaze.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ public class RoleController {
         this.userService = userService;
     }
 
-    @GetMapping("/change-roles")
+    @GetMapping("/roles-show")
     public String getChangeRoles(Model model) {
 
         ListUserRoleDTO allRoles = this.userRoleService.findAllRoles();
@@ -32,31 +30,31 @@ public class RoleController {
 
         model.addAttribute("allRoles", allRoles);
         model.addAttribute("allUsers", allUsers);
-        return "change-roles";
+        return "roles-show";
     }
 
-    @GetMapping("/users/choose-roles{id}")
+    @GetMapping("/users/roles-edit{id}")
     public String chooseChange(@PathVariable Long id, Model model) {
         UserDTO userDTO = this.userService.findById(id);
 
         model.addAttribute("userDTO", userDTO);
 
-        return "choose-roles";
+        return "roles-edit";
     }
 
-    @GetMapping("/users/change-roles/admin{id}")
+    @GetMapping("/users/roles-edit/admin{id}")
     public String makeAdmin(@PathVariable Long id) {
         this.userRoleService.makeAdmin(id);
         return "roles-changed";
     }
 
-    @GetMapping("/users/change-roles/moderator{id}")
+    @GetMapping("/users/roles-edit/moderator{id}")
     public String makeModerator(@PathVariable Long id) {
         this.userRoleService.makeModerator(id);
         return "roles-changed";
     }
 
-    @GetMapping("/users/change-roles/delete-roles{id}")
+    @GetMapping("/users/roles-edit/delete-roles{id}")
     public String deleteRoles(@PathVariable Long id) {
         this.userRoleService.deleteRoles(id);
         return "roles-changed";

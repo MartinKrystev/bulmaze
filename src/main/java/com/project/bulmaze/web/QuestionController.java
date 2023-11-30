@@ -1,9 +1,7 @@
 package com.project.bulmaze.web;
 
 import com.project.bulmaze.model.dto.*;
-import com.project.bulmaze.service.AnswerService;
-import com.project.bulmaze.service.QuestionService;
-import com.project.bulmaze.service.UserService;
+import com.project.bulmaze.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
@@ -28,38 +25,38 @@ public class QuestionController {
     private final QuestionService questionService;
     private final AnswerService answerService;
     private final UserService userService;
+    private final ClueService clueService;
 
     @Autowired
-    public QuestionController(QuestionService questionService, AnswerService answerService, UserService userService) {
+    public QuestionController(QuestionService questionService, AnswerService answerService, UserService userService, ClueService clueService) {
         this.questionService = questionService;
         this.answerService = answerService;
         this.userService = userService;
+        this.clueService = clueService;
     }
 
-    @GetMapping("/all-questions")
+    @GetMapping("/questions-all")
     public String getQuestion(Model model, Principal principal,
-                              @PageableDefault(
-                                      size = 1,
-                                      sort = "id"
-                              ) Pageable pageable) {
+                              @PageableDefault(size = 1, sort = "id") Pageable pageable) {
         UserDTO user = this.userService.findByUsername(principal.getName());
         List<QuestionDTO> allQuestions = this.questionService.allQuestions();
         Page<QuestionDTO> allQuestionsPage = this.questionService.getAllQuestions(pageable);
+        List<AnswerDTO> allGivenAnswers = this.answerService.getAllGivenAnswers(principal.getName());
+        List<ClueDTO> allClues = this.clueService.getAllClues();
 
         int totalPages = allQuestionsPage.getTotalPages();
         if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .toList();
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().toList();
             model.addAttribute("pageNumbers", pageNumbers);
         }
 
+        model.addAttribute("user", user);
         model.addAttribute("allQuestions", allQuestions);
         model.addAttribute("allQuestionsPage", allQuestionsPage);
-        model.addAttribute("user", user);
-        return "all-questions";
+        model.addAttribute("allGivenAnswers", allGivenAnswers);
+        model.addAttribute("allClues", allClues);
+        return "questions-all";
 
-        //TODO: fix the PAGINATION...
     }
 
     @GetMapping("/questions/{id}")
@@ -72,12 +69,12 @@ public class QuestionController {
         return "congrats";
     }
 
-    @GetMapping("/add-question")
+    @GetMapping("/questions-add")
     public String getAddQuestion() {
-        return "add-question";
+        return "questions-add";
     }
 
-    @PostMapping("/add-question")
+    @PostMapping("/questions-add")
     public String postAddQuestion(@Valid @ModelAttribute(name = "addQuestionWrapperDTO") AddQuestionWrapperDTO addQuestionWrapperDTO,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes,
@@ -85,7 +82,7 @@ public class QuestionController {
         if (bindingResult.hasErrors() || !this.questionService.addNewQuestion(addQuestionWrapperDTO, principal)) {
             redirectAttributes.addFlashAttribute("addQuestionWrapperDTO", addQuestionWrapperDTO)
                     .addFlashAttribute("org.springframework.validation.BindingResult.addQuestionWrapperDTO", bindingResult);
-            return "redirect:/add-question";
+            return "redirect:/questions-add";
         }
         return "redirect:/question-added";
     }

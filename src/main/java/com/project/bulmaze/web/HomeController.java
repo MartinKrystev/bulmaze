@@ -70,7 +70,7 @@ public class HomeController {
 
     @GetMapping("/contact-sent")
     public String getContactSent() {
-        return "/contact-sent";
+        return "contact-sent";
     }
 
     @GetMapping("/about")
@@ -80,7 +80,7 @@ public class HomeController {
 
     @GetMapping("/newsletter-signed")
     private String getNewsletter() {
-        return "/newsletter-signed";
+        return "newsletter-signed";
     }
 
 
