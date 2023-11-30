@@ -65,6 +65,8 @@ public class UserServiceImpl implements UserService {
                 .setRoles(new ArrayList<>());
 
         this.userRepository.save(user);
+        //TODO: Email for NEW registered user     --> sending email upon USER registration
+//        NewUserEmailSender.newUserRegisteredEmail();
         return true;
     }
 
@@ -72,18 +74,19 @@ public class UserServiceImpl implements UserService {
     public UserDTO findByUsername(String username) {
         Optional<UserEntity> byUsername = this.userRepository.findByUsername(username);
         if (byUsername.isPresent()) {
-            UserDTO userDTO = this.modelMapper.map(byUsername.get(), UserDTO.class);
 
-            List<GivenAnswerEntity> givenAnswers = byUsername.get().getGivenAnswers();
-
-            if (userDTO.getUserProgress() == null) {
-                userDTO.setUserProgress(0L);
+            UserEntity currUserEntity = byUsername.get();
+            if (currUserEntity.getUserProgress() == null) {
+                currUserEntity.setUserProgress(0L);
+                this.userRepository.save(currUserEntity);
             }
 
-            List<GivenAnswerDTO> givenAnswersDTO = givenAnswers
-                    .stream()
-                    .map(a -> modelMapper.map(a, GivenAnswerDTO.class))
-                    .toList();
+            List<GivenAnswerEntity> givenAnswers = currUserEntity.getGivenAnswers();
+            UserDTO userDTO = this.modelMapper.map(currUserEntity, UserDTO.class);
+
+            List<GivenAnswerDTO> givenAnswersDTO = givenAnswers.stream()
+                            .map(a -> modelMapper.map(a, GivenAnswerDTO.class))
+                            .toList();
 
             userDTO.setAnswers(givenAnswersDTO);
 
@@ -99,21 +102,15 @@ public class UserServiceImpl implements UserService {
         if (byUsername.isPresent()) {
             UserEntity userEntity = byUsername.get();
 
-            Optional<QuestionEntity> optQuestion = this.questionRepository.findByName(answer.getName());
-            if (optQuestion.isPresent()) {
-                QuestionEntity questionEntity = optQuestion.get();
+            Optional<QuestionEntity> optById = this.questionRepository.findById(user.getUserProgress() + 1);
+            if (optById.isPresent()) {
+                QuestionEntity questionEntity = optById.get();
 
                 userEntity.addAnsweredQuestion(questionEntity);
                 userEntity.setScore(userEntity.getScore() + 1);
 
-                Optional<GivenAnswerEntity> byDescription = this.givenAnswerRepository.findByDescription(answer.getDescription());
-                if (byDescription.isPresent()) {
-                    userEntity.addGivenAnswer(byDescription.get());
-                } else {
-                    userEntity.addGivenAnswer(new GivenAnswerEntity().setDescription(answer.getDescription()));
-                }
-
-                this.userRepository.save(userEntity);
+                addAnswerToUserEntity(answer, userEntity);
+                updateUserProgress(userEntity);
             }
         }
     }
@@ -125,15 +122,24 @@ public class UserServiceImpl implements UserService {
         if (byUsername.isPresent()) {
             UserEntity userEntity = byUsername.get();
 
-            Optional<GivenAnswerEntity> byDescription = this.givenAnswerRepository.findByDescription(answer.getDescription());
-            if (byDescription.isPresent()) {
-                userEntity.addGivenAnswer(byDescription.get());
-            } else {
-                userEntity.addGivenAnswer(new GivenAnswerEntity().setDescription(answer.getDescription()));
-            }
-
-            this.userRepository.save(userEntity);
+            addAnswerToUserEntity(answer, userEntity);
+            updateUserProgress(userEntity);
         }
+    }
+
+    private void addAnswerToUserEntity(AnswerDTO answer, UserEntity userEntity) {
+        Optional<GivenAnswerEntity> byDescription = this.givenAnswerRepository.findByDescription(answer.getDescription());
+        if (byDescription.isPresent()) {
+            userEntity.addGivenAnswer(byDescription.get());
+        } else {
+            userEntity.addGivenAnswer(new GivenAnswerEntity().setDescription(answer.getDescription()));
+        }
+    }
+
+    private void updateUserProgress(UserEntity userEntity) {
+        Long currUserProgress = userEntity.getUserProgress();
+        userEntity.setUserProgress(currUserProgress + 1);
+        this.userRepository.save(userEntity);
     }
 
     @Override

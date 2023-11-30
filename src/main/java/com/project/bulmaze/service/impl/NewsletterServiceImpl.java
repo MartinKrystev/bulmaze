@@ -22,6 +22,7 @@ public class NewsletterServiceImpl implements NewsletterService {
     public boolean addToNewsletter(NewsletterDTO addNewsletterDTO) {
         Optional<NewsletterEntity> byEmail = this.newsletterRepository.findByEmail(addNewsletterDTO.getEmail());
         if (byEmail.isPresent()) {
+            //Email is already registered for the newsletter
             return true;
         }
 

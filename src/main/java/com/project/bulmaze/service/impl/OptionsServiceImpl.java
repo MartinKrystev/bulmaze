@@ -27,9 +27,7 @@ public class OptionsServiceImpl implements OptionsService {
     public List<OptionsDTO> getAllOptions() {
         List<OptionsEntity> allOptions = this.optionsRepository.findAll();
         List<OptionsDTO> allOptionsDTO = new ArrayList<>();
-        allOptions.forEach(o -> {
-            allOptionsDTO.add(this.mapper.map(o, OptionsDTO.class));
-        });
+        allOptions.forEach(o -> allOptionsDTO.add(this.mapper.map(o, OptionsDTO.class)));
         return allOptionsDTO;
     }
 

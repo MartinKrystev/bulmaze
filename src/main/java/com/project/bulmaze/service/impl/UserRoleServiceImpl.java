@@ -8,8 +8,6 @@ import com.project.bulmaze.model.enums.UserRoleEnum;
 import com.project.bulmaze.repository.UserRepository;
 import com.project.bulmaze.repository.UserRoleRepository;
 import com.project.bulmaze.service.UserRoleService;
-import jakarta.persistence.Transient;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +51,7 @@ public class UserRoleServiceImpl implements UserRoleService {
                 for (UserRoleEntity r : currRoles) {
                     if (r.getRole() == UserRoleEnum.ADMIN) {
                         hasRole = true;
+                        break;
                     }
                 }
                 if (!hasRole) {
@@ -60,8 +59,6 @@ public class UserRoleServiceImpl implements UserRoleService {
                     this.userRepository.save(optUser.get());
                 }
             }
-//            adminRole.ifPresent(userRoleEntity -> optUser.get().getRoles().add(userRoleEntity));
-//            function style
         }
     }
 
@@ -77,6 +74,7 @@ public class UserRoleServiceImpl implements UserRoleService {
                 for (UserRoleEntity r : currRoles) {
                     if (r.getRole() == UserRoleEnum.MODERATOR) {
                         hasRole = true;
+                        break;
                     }
                 }
                 if (!hasRole) {
@@ -84,8 +82,6 @@ public class UserRoleServiceImpl implements UserRoleService {
                     this.userRepository.save(optUser.get());
                 }
             }
-//            adminRole.ifPresent(userRoleEntity -> optUser.get().getRoles().add(userRoleEntity));
-//            function style
         }
     }
 

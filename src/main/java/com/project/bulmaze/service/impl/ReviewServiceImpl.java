@@ -1,6 +1,6 @@
 package com.project.bulmaze.service.impl;
 
-import com.project.bulmaze.model.dto.ReviewAddDTO;
+import com.project.bulmaze.model.dto.AddReviewDTO;
 import com.project.bulmaze.model.dto.ReviewDTO;
 import com.project.bulmaze.model.entity.ReviewEntity;
 import com.project.bulmaze.model.entity.UserEntity;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,20 +35,24 @@ public class ReviewServiceImpl implements ReviewService {
         return all
                 .stream()
                 .map(r -> this.modelMapper.map(r, ReviewDTO.class))
+                .sorted((b, a) -> a.getDate().compareTo(b.getDate()))
                 .toList();
     }
 
     @Override
-    public boolean addReview(ReviewAddDTO reviewAddDTO, Principal principal) {
+    public boolean addReview(AddReviewDTO addReviewDTO, Principal principal) {
         Optional<UserEntity> byUsername = this.userRepository.findByUsername(principal.getName());
         if (byUsername.isEmpty()) {
             return false;
         }
 
         ReviewEntity reviewEntity = new ReviewEntity()
-                .setReview(reviewAddDTO.getReview())
                 .setUsername(principal.getName())
-                .setApproved(false);
+                .setReview(addReviewDTO.getReview())
+                .setStars(addReviewDTO.getStars())
+                .setDate(LocalDate.now())
+                .setApproved(true);
+        //TODO: should be approved by scheduled task!   -->      .setApproved(false);
 
         byUsername.get().setReviewSent(true);
 
@@ -58,6 +63,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void approveReviews() {
+        //Scheduled by ReviewsApprovalScheduler
         List<ReviewEntity> all = this.reviewRepository.findAll();
         List<ReviewEntity> approved = all.stream()
                 .map(r -> r.setApproved(true))
