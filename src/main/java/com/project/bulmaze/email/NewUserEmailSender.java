@@ -1,5 +1,6 @@
 package com.project.bulmaze.email;
 
+import com.project.bulmaze.utils.PrivateEnums;
 import sendinblue.ApiClient;
 import sendinblue.Configuration;
 import sendinblue.auth.ApiKeyAuth;
@@ -16,7 +17,7 @@ public class NewUserEmailSender {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         ApiKeyAuth apiKey = (ApiKeyAuth) defaultClient.getAuthentication("api-key");
-        apiKey.setApiKey("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");
+        apiKey.setApiKey(PrivateEnums.API_KEY);
 
         try {
             TransactionalEmailsApi api = new TransactionalEmailsApi();
