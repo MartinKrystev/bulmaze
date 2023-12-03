@@ -26,6 +26,9 @@ public class InquiryEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String message;
 
+    @Column
+    private boolean isReviewed;
+
     public Long getId() {
         return id;
     }
@@ -68,6 +71,15 @@ public class InquiryEntity {
 
     public InquiryEntity setMessage(String message) {
         this.message = message;
+        return this;
+    }
+
+    public boolean isReviewed() {
+        return isReviewed;
+    }
+
+    public InquiryEntity setReviewed(boolean isReviewed) {
+        this.isReviewed = isReviewed;
         return this;
     }
 }

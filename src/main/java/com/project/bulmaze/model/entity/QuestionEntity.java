@@ -23,12 +23,13 @@ public class QuestionEntity {
     private String ask;
     @Column(nullable = false, name = "image_url")
     @NotBlank
+    @Size(min = 10)
     private String imageUrl;
     @OneToOne
     private AnswerEntity answer;
     @OneToOne
     private ClueEntity clue;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private StoryEntity story;
     @OneToOne
     private OptionsEntity options;

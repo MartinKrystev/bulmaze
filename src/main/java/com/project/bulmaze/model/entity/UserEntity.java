@@ -43,7 +43,7 @@ public class UserEntity {
     private List<QuestionEntity> answeredQuestions;
     @Column(name = "user_progress")
     private Long userProgress;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<GivenAnswerEntity> givenAnswers;
     @Column(name = "review_sent")
     private boolean reviewSent;

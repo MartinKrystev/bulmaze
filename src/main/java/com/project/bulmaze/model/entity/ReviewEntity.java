@@ -2,6 +2,8 @@ package com.project.bulmaze.model.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "reviews")
 public class ReviewEntity {
@@ -10,8 +12,12 @@ public class ReviewEntity {
     private Long id;
     @Column
     private String username;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String review;
+    @Column
+    private int stars;
+    @Column
+    private LocalDate date;
     @Column(name = "is_approved")
     private boolean isApproved;
 
@@ -39,6 +45,24 @@ public class ReviewEntity {
 
     public ReviewEntity setReview(String review) {
         this.review = review;
+        return this;
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public ReviewEntity setStars(int stars) {
+        this.stars = stars;
+        return this;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public ReviewEntity setDate(LocalDate date) {
+        this.date = date;
         return this;
     }
 

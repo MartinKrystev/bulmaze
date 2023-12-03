@@ -1,7 +1,6 @@
 package com.project.bulmaze.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -13,7 +12,6 @@ public class AnswerEntity  {
     private Long id;
     @Column(nullable = false)
     private String name;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     @Size(min = 1)
     private String description;
