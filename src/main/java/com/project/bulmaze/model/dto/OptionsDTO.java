@@ -1,27 +1,21 @@
-package com.project.bulmaze.model.entity;
+package com.project.bulmaze.model.dto;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "options")
-public class OptionsEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OptionsDTO {
     private Long id;
-    @Column(nullable = false)
+
     private String first;
-    @Column(nullable = false)
+
     private String second;
-    @Column(nullable = false)
+
     private String third;
-    @Column(nullable = false)
+
     private String fourth;
 
     public Long getId() {
         return id;
     }
 
-    public OptionsEntity setId(Long id) {
+    public OptionsDTO setId(Long id) {
         this.id = id;
         return this;
     }
@@ -30,7 +24,7 @@ public class OptionsEntity {
         return first;
     }
 
-    public OptionsEntity setFirst(String first) {
+    public OptionsDTO setFirst(String first) {
         this.first = first;
         return this;
     }
@@ -39,7 +33,7 @@ public class OptionsEntity {
         return second;
     }
 
-    public OptionsEntity setSecond(String second) {
+    public OptionsDTO setSecond(String second) {
         this.second = second;
         return this;
     }
@@ -48,7 +42,7 @@ public class OptionsEntity {
         return third;
     }
 
-    public OptionsEntity setThird(String third) {
+    public OptionsDTO setThird(String third) {
         this.third = third;
         return this;
     }
@@ -57,7 +51,7 @@ public class OptionsEntity {
         return fourth;
     }
 
-    public OptionsEntity setFourth(String fourth) {
+    public OptionsDTO setFourth(String fourth) {
         this.fourth = fourth;
         return this;
     }
