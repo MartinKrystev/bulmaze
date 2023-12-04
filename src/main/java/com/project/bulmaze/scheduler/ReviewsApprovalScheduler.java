@@ -15,8 +15,9 @@ public class ReviewsApprovalScheduler {
         this.reviewService = reviewService;
     }
 
-    @Scheduled(fixedRate = 3_600_000)
+    @Scheduled(fixedRate = 3_600_000) // every hour
     public void approveReviews() {
         this.reviewService.approveReviews();
     }
+
 }
