@@ -40,6 +40,7 @@ public class NewInquiryEmailSender {
                 sb.append("</p>");
 
                 sb.append("<hr>");
+                sb.append("</body></html>");
             }
 
             TransactionalEmailsApi api = new TransactionalEmailsApi();
@@ -73,12 +74,11 @@ public class NewInquiryEmailSender {
             sendSmtpEmail.setHeaders(headers);
             sendSmtpEmail.setParams(params);
 
-
             //Sending mail for NEW Inquiry........
             CreateSmtpEmail response = api.sendTransacEmail(sendSmtpEmail);
             System.out.println(response.toString());
         } catch (Exception e) {
-            System.out.println("Exception occurred:- " + e.getMessage());
+            System.out.println("Exception occurred: " + e.getMessage());
         }
     }
 }
