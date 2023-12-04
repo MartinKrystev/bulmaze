@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface OptionsService {
     List<OptionsDTO> getAllOptions();
-
     OptionsDTO optionsCurrQuestion(Long userProgress);
 }

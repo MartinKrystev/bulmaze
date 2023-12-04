@@ -51,8 +51,7 @@ public class ReviewServiceImpl implements ReviewService {
                 .setReview(addReviewDTO.getReview())
                 .setStars(addReviewDTO.getStars())
                 .setDate(LocalDate.now())
-                .setApproved(true);
-        //TODO: should be approved by scheduled task!   -->      .setApproved(false);
+                .setApproved(false);
 
         byUsername.get().setReviewSent(true);
 

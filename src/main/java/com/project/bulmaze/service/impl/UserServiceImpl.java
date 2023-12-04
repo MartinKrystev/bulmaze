@@ -1,19 +1,24 @@
 package com.project.bulmaze.service.impl;
 
+import com.project.bulmaze.email.NewUserEmailSender;
 import com.project.bulmaze.model.dto.*;
 import com.project.bulmaze.model.entity.GivenAnswerEntity;
 import com.project.bulmaze.model.entity.QuestionEntity;
 import com.project.bulmaze.model.entity.UserEntity;
+import com.project.bulmaze.model.entity.UserRoleEntity;
+import com.project.bulmaze.model.enums.UserRoleEnum;
 import com.project.bulmaze.repository.GivenAnswerRepository;
 import com.project.bulmaze.repository.QuestionRepository;
 import com.project.bulmaze.repository.UserRepository;
+import com.project.bulmaze.repository.UserRoleRepository;
 import com.project.bulmaze.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,18 +29,21 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final QuestionRepository questionRepository;
     private final GivenAnswerRepository givenAnswerRepository;
+    private final UserRoleRepository userRoleRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
                            ModelMapper modelMapper,
                            QuestionRepository questionRepository,
-                           GivenAnswerRepository givenAnswerRepository) {
+                           GivenAnswerRepository givenAnswerRepository,
+                           UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
         this.questionRepository = questionRepository;
         this.givenAnswerRepository = givenAnswerRepository;
+        this.userRoleRepository = userRoleRepository;
     }
 
     @Override
@@ -53,6 +61,9 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
+
+        UserRoleEntity userRole = this.userRoleRepository
+                .findUserRoleEntityByRole(UserRoleEnum.USER).orElseThrow();
         UserEntity user = new UserEntity()
                 .setFirstName(userRegisterDTO.getFirstName())
                 .setLastName(userRegisterDTO.getLastName())
@@ -62,11 +73,10 @@ public class UserServiceImpl implements UserService {
                 .setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()))
                 .setScore(0)
                 .setUserProgress(0L)
-                .setRoles(new ArrayList<>());
+                .setRoles(List.of(userRole));
 
         this.userRepository.save(user);
-        //TODO: Email for NEW registered user     --> sending email upon USER registration
-//        NewUserEmailSender.newUserRegisteredEmail();
+        NewUserEmailSender.newUserRegisteredEmail();
         return true;
     }
 
@@ -127,6 +137,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    @Async("asyncExecutor")
+    public void deleteUser(Long id) {
+        UserEntity byId = this.userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
+        this.userRepository.delete(byId);
+    }
+
     private void addAnswerToUserEntity(AnswerDTO answer, UserEntity userEntity) {
         Optional<GivenAnswerEntity> byDescription = this.givenAnswerRepository.findByDescription(answer.getDescription());
         if (byDescription.isPresent()) {
@@ -148,7 +165,7 @@ public class UserServiceImpl implements UserService {
 
         return all
                 .stream()
-                .map(u -> modelMapper.map(u, UserDTO.class))
+                .map(u -> this.modelMapper.map(u, UserDTO.class))
                 .toList();
     }
 

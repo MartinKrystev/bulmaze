@@ -8,7 +8,6 @@ import com.project.bulmaze.model.dto.UserScoreboardWrapperDTO;
 import java.util.List;
 
 public interface UserService {
-
     boolean register(UserRegisterDTO userRegisterDTO);
     UserDTO findByUsername(String username);
     void addCorrectAnswer(UserDTO user, AnswerDTO answer);
@@ -16,4 +15,5 @@ public interface UserService {
     UserDTO findById(Long id);
     UserScoreboardWrapperDTO getScoreboardResults();
     void addWrongAnswer(UserDTO user, AnswerDTO answer);
+    void deleteUser(Long id);
 }

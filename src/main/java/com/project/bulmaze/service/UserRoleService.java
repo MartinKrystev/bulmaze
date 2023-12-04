@@ -6,6 +6,5 @@ public interface UserRoleService {
     ListUserRoleDTO findAllRoles();
     void makeAdmin(Long id);
     void makeModerator(Long id);
-
     void deleteRoles(Long id);
 }
