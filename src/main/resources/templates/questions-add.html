@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<!-- New Question -->
+<div class="container bg-blur rounded mt-3 mb-4 text-center">
+    <form th:method="POST"
+          th:action="@{/questions-add}"
+          th:object="${addQuestionWrapperDTO}">
+
+        <div class="container shadow p-3 mb-5 bg-white rounded">
+
+            <div class="form-group row">
+
+                <div class="form-group col">
+
+                    <h3>Question</h3>
+                    <div class="border border-success p-2">
+                        <div class="label-holder text-white textCol d-flex justify-content-center">
+                            <label for="name" class="h4 mb-2">Name</label>
+                        </div>
+                        <textarea th:field="*{question.name}"
+                                  th:errorclass="'is-invalid alert-danger'"
+                                  type="text" class="form-control" id="name" name="name"></textarea>
+                        <small th:if="${#fields.hasErrors('question.name')}"
+                               th:errors="*{question.name}"
+                               class="text-danger">error message</small>
+                        <br>
+
+                        <div class="label-holder text-white textCol d-flex justify-content-center">
+                            <label for="description" class="h4 mb-2">Description</label>
+                        </div>
+                        <textarea th:field="*{question.description}"
+                                  th:errorclass="'is-invalid alert-danger'"
+                                  type="text" class="form-control" id="description" name="description"></textarea>
+                        <small th:if="${#fields.hasErrors('question.description')}"
+                               th:errors="*{question.description}"
+                               class="text-danger">error message</small>
+                        <br>
+
+                        <div class="label-holder text-white textCol d-flex justify-content-center">
+                            <label for="ask" class="h4 mb-2">Ask</label>
+                        </div>
+                        <textarea th:field="*{question.ask}"
+                                  th:errorclass="'is-invalid alert-danger'"
+                                  type="text" class="form-control" id="ask" name="ask"></textarea>
+                        <small th:if="${#fields.hasErrors('question.ask')}"
+                               th:errors="*{question.ask}"
+                               class="text-danger">error message</small>
+                        <br>
+
+                        <div class="label-holder text-white textCol d-flex justify-content-center">
+                            <label for="imageUrl" class="h4 mb-2">Image URL</label>
+                        </div>
+                        <textarea placeholder="/images/PIC_NAME.jpg" th:field="*{question.imageUrl}"
+                                  th:errorclass="'is-invalid alert-danger'"
+                                  type="text" class="form-control" id="imageUrl" name="imageUrl"></textarea>
+                        <small th:if="${#fields.hasErrors('question.imageUrl')}"
+                               th:errors="*{question.imageUrl}"
+                               class="text-danger">error message</small>
+                    </div>
+                </div>
+
+                <div class="form-group col">
+
+                    <h3>Option answers</h3>
+                    <div class="border border-success p-2">
+                        <div class="label-holder text-white textCol d-flex justify-content-center">
+                            <label for="first" class="h4 mb-2">First</label>
+                        </div>
+                        <textarea th:field="*{options.first}"
+                                  th:errorclass="'is-invalid alert-danger'"
+                                  type="text" class="form-control" id="first" name="first"></textarea>
+                        <small th:if="${#fields.hasErrors('options.first')}"
+                               th:errors="*{options.first}"
+                               class="text-danger">error message</small>
+                        <br>
+
+                        <div class="label-holder text-white textCol d-flex justify-content-center">
+                            <label for="second" class="h4 mb-2">Second</label>
+                        </div>
+                        <textarea th:field="*{options.second}"
+                                  th:errorclass="'is-invalid alert-danger'"
+                                  type="text" class="form-control" id="second" name="second"></textarea>
+                        <small th:if="${#fields.hasErrors('options.second')}"
+                               th:errors="*{options.second}"
+                               class="text-danger">error message</small>
+                        <br>
+
+                        <div class="label-holder text-white textCol d-flex justify-content-center">
+                            <label for="third" class="h4 mb-2">Third</label>
+                        </div>
+                        <textarea th:field="*{options.third}"
+                                  th:errorclass="'is-invalid alert-danger'"
+                                  type="text" class="form-control" id="third" name="third"></textarea>
+                        <small th:if="${#fields.hasErrors('options.third')}"
+                               th:errors="*{options.third}"
+                               class="text-danger">error message</small>
+                        <br>
+
+                        <div class="label-holder text-white textCol d-flex justify-content-center">
+                            <label for="fourth" class="h4 mb-2">Fourth</label>
+                        </div>
+                        <textarea th:field="*{options.fourth}"
+                                  th:errorclass="'is-invalid alert-danger'"
+                                  type="text" class="form-control" id="fourth" name="fourth"></textarea>
+                        <small th:if="${#fields.hasErrors('options.fourth')}"
+                               th:errors="*{options.fourth}"
+                               class="text-danger">error message</small>
+                    </div>
+                </div>
+
+                <div class="form-group col">
+
+                    <div class="form-group row" style="width: 33vw">
+
+                        <div class="form-group col">
+
+                            <h3>Correct answer</h3>
+                            <div class="border border-success p-2">
+                                <div class="label-holder text-white textCol d-flex justify-content-center">
+                                    <label for="answer" class="h4 mb-2">Answer</label>
+                                </div>
+                                <textarea th:field="*{answer.description}"
+                                          th:errorclass="'is-invalid alert-danger'"
+                                          type="text" class="form-control" id="answer" name="answer"></textarea>
+                                <small th:if="${#fields.hasErrors('answer.description')}"
+                                       th:errors="*{answer.description}"
+                                       class="text-danger">error message</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group col">
+
+                            <h3>Clue</h3>
+                            <div class="border border-success p-2">
+                                <div class="label-holder text-white textCol d-flex justify-content-center">
+                                    <label for="clue" class="h4 mb-2">Clue</label>
+                                </div>
+                                <textarea th:field="*{clue.description}"
+                                          th:errorclass="'is-invalid alert-danger'"
+                                          type="text" class="form-control" id="clue" name="clue"></textarea>
+                                <small th:if="${#fields.hasErrors('clue.description')}"
+                                       th:errors="*{clue.description}"
+                                       class="text-danger">error message</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+
+                        <h3>Story</h3>
+                        <div class="border border-success p-2">
+                            <div class="label-holder text-white textCol d-flex justify-content-center">
+                                <label for="story" class="h4 mb-2">Story</label>
+                            </div>
+                            <textarea style="height: 27vh"
+                                      th:field="*{story.description}"
+                                      th:errorclass="'is-invalid alert-danger'"
+                                      type="text" class="form-control" id="story" name="story"></textarea>
+                            <small th:if="${#fields.hasErrors('story.description')}"
+                                   th:errors="*{story.description}"
+                                   class="text-danger">error message</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2 rounded p-2">Submit the question</button>
+    </form>
+</div>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+</body>
+
+</html>

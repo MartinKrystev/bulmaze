@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<!--Head Photo Start-->
+<div class="container-fluid page-header py-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Reviews</h1>
+        <nav aria-label="breadcrumb animated slideInDown"></nav>
+    </div>
+</div>
+<!--Head Photo End-->
+
+<div class="container">
+    <div class="row">
+
+        <!--New Review-->
+        <div class="col-2 mt-5">
+            <a class="btn btn-primary border rounded-pill p-3" th:href="@{/review/add}">Write a review</a>
+        </div>
+        <!--ЕО: New Review-->
+
+        <!--All Reviews-->
+        <div class="col-8">
+            <hr>
+            <div class=" border border-success m-4 shadow p-3 mb-5 bg-light rounded" th:each="r : ${allReviews}">
+                <th:block th:if="${r.approved == true}">
+                    <div class="bg-light text-dark" th:text="*{r.username}"></div>
+                    <hr class="m-0">
+
+                    <!--Stars-->
+                    <div th:if="*{r.getStars() == 1}">
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                    </div>
+                    <div th:if="*{r.getStars() == 2}">
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                    </div>
+                    <div th:if="*{r.getStars() == 3}">
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                    </div>
+                    <div th:if="*{r.getStars() == 4}">
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-regular fa-circle" style="color: #65b530"></i>
+                    </div>
+                    <div th:if="*{r.getStars() == 5}">
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                        <i class="fa-solid fa-circle" style="color: #65b530"></i>
+                    </div>
+                    <div>
+                    </div>
+                    <!--EO: Stars-->
+
+                    <div class="bg-light small"
+                         th:text="'• ' + *{r.date.getMonth() + ' ' + r.date.getYear() + ' •'}"></div>
+                    <div class="bg-light text-dark" th:text="*{r.review}"></div>
+                    <div class="m-lg-2">
+                        <p class="mb-0" style="font-size:70%"
+                           th:text="'Written ' + *{r.date.getMonth().toString().substring(0, 3)} + ' ' + *{r.date.getDayOfMonth()} + ', ' + *{r.date.getYear()}"></p>
+                        <p class="mb-0" style="font-size:70%">This review is the subjective opinion of a BulMaze
+                            member and not of BulMaze LLC. BulMaze performs checks on reviews as part of our
+                            industry-leading
+                            trust & safety standards. Read our <u><a href="terms-conditions" style="color: #9b9b9b">terms
+                                and conditions</a></u> to learn more.</p>
+                    </div>
+                </th:block>
+
+                <th:block th:unless="${r.approved == true}">
+                    <div class="bg-light" th:text="*{r.username}"></div>
+                    <div class="bg-light" th:text="'Expecing system`s approval...'"></div>
+                </th:block>
+            </div>
+        </div>
+
+        <hr class="mt-3">
+        <!--EO:  All Reviews-->
+    </div>
+</div>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+
+<footer th:replace="~{fragments/commons::footer}"></footer>
+</body>
+</html>

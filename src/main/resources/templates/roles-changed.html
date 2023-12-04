@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<div>
+  <h1 class="justify-content-center text-center mt-5"
+      style="color: #65b530">Roles have been updated!</h1>
+</div>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+</body>
+
+</html>

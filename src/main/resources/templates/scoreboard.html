@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <title>BulMaze - Explore Sofia city on foot</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="/favicon.ico" rel="icon">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="/js/animate/animate.min.css" rel="stylesheet">
+    <link href="/js/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/js/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url("/images/st-george-rotunda.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<!--Head Photo Start-->
+<div class="container-fluid">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Current results</h1>
+        <nav aria-label="breadcrumb animated slideInDown"></nav>
+    </div>
+</div>
+<!--Head Photo End-->
+
+<!--<div class="container border border-dark m-6 bg-secondary">-->
+<!--    <div class="row bg-warning">-->
+<!--        <div class="col text-dark"><b>POSITION</b></div>-->
+<!--        <div class="col text-dark"><b>PLAYER</b></div>-->
+<!--        <div class="col text-dark"><b>POINTS</b></div>-->
+<!--        &lt;!&ndash;        <div class="col text-dark"><b>TIME</b></div>&ndash;&gt;-->
+<!--    </div>-->
+
+<!--    <div class="row border border-success m-1" th:each="u : ${allWrapperDTO.allUsers}">-->
+
+<!--        <th:block th:if="*{u.username.equals(#authentication.getPrincipal().getUsername())}">-->
+<!--            <div class="col bg-light text-dark" th:with="myCounter = ${counter.getCount()}">-->
+<!--                <div th:with="myCounter = ${counter.incrementAndGet()}">-->
+<!--                    <span class="bg-light text-danger" th:text="${myCounter}"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col bg-light text-danger" th:text="*{u.username}"></div>-->
+<!--            &lt;!&ndash;        <div class="col bg-light">N/A</div>&ndash;&gt;-->
+<!--            <div class="col bg-light text-danger" th:text="*{u.score}"></div>-->
+<!--        </th:block>-->
+
+<!--        <th:block th:unless="*{u.username.equals(#authentication.getPrincipal().getUsername())}">-->
+<!--            &lt;!&ndash;Counter&ndash;&gt;-->
+<!--            <div class="col bg-light text-dark" th:with="myCounter = ${counter.getCount()}">-->
+<!--                <div th:with="myCounter = ${counter.incrementAndGet()}">-->
+<!--                    <span class="bg-light text-dark" th:text="${myCounter}"></span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;EO: Counter&ndash;&gt;-->
+
+<!--            <div class="col bg-light text-dark" th:text="*{u.username}"></div>-->
+<!--            &lt;!&ndash;        <div class="col bg-light">N/A</div>&ndash;&gt;-->
+<!--            <div class="col bg-light text-dark" th:text="*{u.score}"></div>-->
+<!--        </th:block>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<div class="container breadcrumb animated slideInDown" style="width: 80vw">
+    <!--<div class="table-responsive-sm m-4"  style="width: 90vw">-->
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">POSITION</th>
+            <th scope="col">PLAYER</th>
+            <th scope="col">POINTS</th>
+        </tr>
+        </thead>
+
+        <tbody th:each="u : ${allWrapperDTO.allUsers}">
+        <tr>
+            <th:block th:if="*{u.username.equals(#authentication.getPrincipal().getUsername())}">
+                <td>
+                    <div th:with="myCounter = ${counter.getCount()}">
+                        <div th:with="myCounter = ${counter.incrementAndGet()}">
+                            <span class="text-danger" th:text="${myCounter}"></span>
+                        </div>
+                    </div>
+                </td>
+                <td class="text-danger" th:text="*{u.username}"></td>
+                <td class="text-danger" th:text="*{u.score}"></td>
+            </th:block>
+        </tr>
+
+        <tr>
+            <th:block th:unless="*{u.username.equals(#authentication.getPrincipal().getUsername())}">
+                <td>
+                    <div th:with="myCounter = ${counter.getCount()}">
+                        <div th:with="myCounter = ${counter.incrementAndGet()}">
+                            <span th:text="${myCounter}"></span>
+                        </div>
+                    </div>
+                </td>
+                <td th:text="*{u.username}"></td>
+                <td th:text="*{u.score}"></td>
+            </th:block>
+        </tbody>
+        </tr>
+    </table>
+</div>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<!-- All Roles -->
+<div class="container bg-blur rounded mt-3 mb-4">
+    <h1 class="justify-content-center ">All users</h1>
+
+    <div class="row mt-3 mb-3">
+
+        <div class="container">
+            <div class="row">
+                <h3 th:each="user : ${allUsers}"
+                    class="mt-3 rounded badge-warning">
+
+                    <div class="col">
+                        <h3 th:text="'User: ' + *{user.username}"></h3>
+                    </div>
+                    <div class="col">
+                        <h3 th:text="'Roles: ' + *{user.allRoles()}"></h3>
+                    </div>
+                    <a type="submit" class="col ml-3 btn btn-primary"
+                       th:href="@{/users/roles-edit{id}(id=*{user.id})}">Change roles</a>
+
+                    <a type="submit" class="col m-3 btn btn-danger"
+                       th:href="@{/users/delete/{id}(id=*{user.id})}">Delete user</a>
+                    <hr>
+                </h3>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- EO: All Roles -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+</body>
+
+</html>

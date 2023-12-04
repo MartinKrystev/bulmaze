@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<div>
+    <h1 class="justify-content-center text-center text-decoration-underline">Welcome to the rules of BulMaze</h1>
+    <hr>
+
+    <div class="container border border-success rounded shadow text-dark p-5">
+        <h3 class="text-center">The rules of BulMaze are very simple, and you don’t need any specific practice or
+            training.</h3>
+        <h3 class="text-center">To Start the game - you just click the “PLAY” button.</h3>
+        <hr>
+        <br>
+        <p>&emsp;&emsp;The in-game questions are designed to trigger your attention to details along with your critical
+            thinking.
+            Look around carefully! Powerful hints leading to the next clue might be right in front of your eyes. You can
+            play the game on your own, with the help of friends, or you can actually compete with them and see who is
+            faster. Good luck!</p>
+
+        <h4><i class="fa-solid fa-location-dot" style="color: #65b530"></i> STARTING POINT</h4>
+        <ul>
+            <li>The main entrance of Alexander Nevsky Cathedral Church.</li>
+        </ul>
+
+        <h4><i class="fa-solid fa-play" style="color: #65b530"></i> START</h4>
+        <ul>
+            <li>You will initialize the first question you have to answer.</li>
+            <li>You will be given four possible answers as of course only one of them would be the correct one.</li>
+            <li>The picture on the screen should direct you to a location of a famous site, where you can find the
+                answer.
+            </li>
+            <li>“Show Clue +” button is design to cast a magic spell, and help you with the solution.</li>
+            <li>You can’t continue forward without selecting a possible answer. If you dare to try… “you shall not
+                pass”.
+            </li>
+            <li>By clicking the “Submit Answer” button, your answer would be sent to our team of elite sages.</li>
+            <li>After a blink of an eye you will continue to the next question. The player won’t know if the given
+                answer is correct or not.
+            </li>
+            <li>Once after the game is completed, you won’t be able to go through the questions again. It is one time
+                run.
+            </li>
+        </ul>
+
+        <br>
+        <h4><i class="fa-solid fa-pause" style="color: #65b530"></i> PAUSE</h4>
+        <ul>
+            <li>The Player is in their right to pause the game at any moment.</li>
+            <li>Every Player’s progress would be gently stored by the warming cares of our great mother eagles.</li>
+            <li>When the Player is ready to continue with the game, the same just has to click “PLAY” button again, and
+                the game shall continue.
+            </li>
+        </ul>
+
+        <br>
+        <h4><i class="fa-solid fa-flag-checkered" style="color: #65b530"></i> FINISH</h4>
+        <ul>
+            <li>Once after the successful completion of the game, the correct answers would be revealed.</li>
+            <li>Everybody can see their rank on the global scale of wisdom, by clicking the “Scoreboard” button.</li>
+            <li>As soon as all the question are being answered, the players would have access to the “Quests” section.
+                All the questions would be displayed there.
+            </li>
+            <li>In the “Quests” section could be found enchanting stories, revealing mysterious knowledge.</li>
+        </ul>
+
+        <br>
+        <h4><i class="fa-regular fa-comment-dots" style="color: #65b530"></i></i> BulMaze END GAME</h4>
+        <ul>
+            <li>As part of the rules, each player should share their impressions, thoughts or suggestions. Each review
+                will be evaluated by our council of witchcrafters. Then would be gently displayed among the rest.
+            </li>
+        </ul>
+
+        <br>
+        <h4><i class="fa-regular fa-file-lines" style="color: #65b530"></i> BulMaze New Seasons and Updates</h4>
+        <ul>
+            <li>After passionate discussions on how can we improve the players experience, new updates would be
+                released. Only those who are fearless, brave and ready for new adventures, those who share their emails
+                with BulMaze’s “Newsletter” will be notified when a new release is dispatched.
+            </li>
+            <li>Just go to the “Home” page and scroll to the bottom. You will find the place where you can leave your
+                email, knowing that it is the only way to be informed for every new update.
+            </li>
+        </ul>
+    </div>
+    <hr>
+
+</div>
+
+<th:block th:replace="~{fragments/commons::footer}"/>
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+</body>
+
+</html>

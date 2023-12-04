@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<!--Story-->
+<div class="container-fluid">
+
+    <div class="row" style="background-color: #c0cee1">
+        <div class="col text-center">
+            <h4 class="text-center text-white mt-2">Season 1: Sofia Explorer</h4>
+            <img class="img-fluid rounded-3 shadow" src="/images/st-sofia-tall.jpg" alt="St Sofia statue">
+        </div>
+
+        <div class="col-7 m-5">
+
+            <h3 th:text="${story.getName()}"></h3>
+            <div>
+                <p th:text="${story.getDescription()}" class="text-dark"></p>
+            </div>
+
+            <div>
+                <form>
+                    <input class="btn btn-primary float-end" type="button" value="Go back!"
+                           onclick="history.back()">
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+</body>
+
+</html>

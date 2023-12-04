@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{fragments/commons::head}"></head>
+<body>
+<header th:replace="~{fragments/commons::nav}"></header>
+<main>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Login</span></h1>
+    <hr class="hr-3 w-25 bg-white"/>
+    <form class="mx-auto w-25 bg-blur"
+          th:method="POST"
+          th:action="@{/users/login}">
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="username" class="h3 mb-2">Username</label>
+            </div>
+            <input type="text"
+                   class="form-control"
+                   id="username"
+                   name="username"
+                   placeholder="username"
+                   th:value="${username}"/>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white d-flex justify-content-center">
+                <label for="password" class="h3 mb-2">Password</label>
+            </div>
+            <input type="password"
+                   class="form-control"
+                   id="password"
+                   name="password"
+                   placeholder="password"/>
+        </div>
+        <hr>
+        <p th:if="${bad_credentials}" class="errors alert alert-danger">
+            Incorrect username or password.
+        </p>
+        <div class="button-holder d-flex justify-content-center">
+            <input type="submit" class="btn btn-warning  mb-3" value="Login"/>
+        </div>
+
+    </form>
+</main>
+<footer th:replace="~{fragments/commons::footer}"></footer>
+</body>
+</html>

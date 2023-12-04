@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<div class="container col-6 border border-success p-2 ">
+    <div class="row">
+        <div class="col-5">
+            <h4 th:text="'Username: ' + ${userDTO.username}"></h4>
+            <hr>
+            <p th:text="'Name: ' + ${userDTO.firstName} + ' ' + ${userDTO.lastName}"></p>
+            <p th:text="'Email: ' + ${userDTO.email}"></p>
+
+        </div>
+        <div class="col-3">
+            <h4 class="text-center">Roles:</h4>
+            <hr>
+            <div th:each="role : ${userDTO.roles}">
+                <th:block th:if="${userDTO.getRoles().size() > 0}">
+                    <p class="text-center" th:text="${role.getRole().toString()}"></p>
+                </th:block>
+            </div>
+            <th:block th:unless="${userDTO.getRoles().size() > 0}">
+                <p class="text-center" th:text="'No Roles'">Roles: N/A</p>
+            </th:block>
+        </div>
+
+        <div class="col-4">
+            <div class="row m-4">
+                <a th:href="@{/users/roles-edit/admin{id}(id=*{userDTO.id})}"
+                   class="btn btn-primary float-end">Make Admin</a>
+            </div>
+            <div class="row m-4">
+                <a th:href="@{/users/roles-edit/moderator{id}(id=*{userDTO.id})}"
+                   class="btn btn-primary float-end">Make Moderator</a>
+            </div>
+            <div class="row m-4">
+                <a th:href="@{/users/roles-edit/delete-roles{id}(id=*{userDTO.id})}"
+                   class="btn btn-primary float-end">Delete All Roles</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}" class="sticky-top"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<!--Head Photo Start-->
+<div class="container-fluid page-header py-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Frequently Asked Questions</h1>
+        <nav aria-label="breadcrumb animated slideInDown"></nav>
+    </div>
+</div>
+<!--Head Photo End-->
+
+<div class="container-fluid  py-5">
+    <div class="container bg-blur rounded mt-3 mb-4">
+        <h1 class="text-center">If you don't find the answer of your question below - contact us.</h1>
+<!--        <button onclick="loadFAQs()">Load all FAQs</button>-->
+        <div class="row mt-3 mb-3">
+            <div class="rounded m-auto">
+                <div th:each="f : ${faqEntities}"
+                     class="mt-3 mb-3">
+                    <hr>
+                    <p id="faqQuestion" th:text="*{f.getQuestion()}" class="h4 fw-bold  text-dark"></p>
+                    <p id="faqAnswer" th:text="*{f.getAnswer()}" class="h6 fw-light" style="color:#573321"></p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+
+<!--<script>-->
+<!--    const faqQuestion = document.getElementById("faqQuestion");-->
+<!--    const faqAnswer = document.getElementById("faqAnswer");-->
+
+<!--    async function loadFAQs(e) {-->
+<!--        if(e) {-->
+<!--            e.preventDefault();-->
+<!--        }-->
+
+<!--        try {-->
+<!--            const res = await fetch('http://localhost:8080/faq');-->
+<!--            const data = await res.json();-->
+
+<!--            let dataObj = Object.values(data);-->
+
+<!--            for (const entry of dataObj) {-->
+<!--                let question = entry.question;-->
+<!--                let answer = entry.answer;-->
+
+<!--                //creating elements-->
+<!--               let elDiv = document.createElement('div')-->
+<!--                let elAnswer = document.createElement('p');-->
+
+<!--                //filling elements-->
+<!--                faqQuestion.appendChild(elDiv);-->
+<!--               faqAnswer.appendChild(elAnswer);-->
+
+<!--            }-->
+<!--        } catch (error) {-->
+<!--            console.error(error);-->
+<!--        }-->
+
+
+<!--    }-->
+<!--</script>-->
+
+<footer th:replace="~{fragments/commons::footer}"></footer>
+</body>
+</html>
