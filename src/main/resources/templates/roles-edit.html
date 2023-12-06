@@ -12,13 +12,13 @@
 
 <th:block th:replace="~{fragments/commons::navbar}"/>
 
-<div class="container col-6 border border-success p-2 ">
+<div class="container col-6 border border-success p-2 shadow-lg">
     <div class="row">
         <div class="col-5">
             <h4 th:text="'Username: ' + ${userDTO.username}"></h4>
             <hr>
-            <p th:text="'Name: ' + ${userDTO.firstName} + ' ' + ${userDTO.lastName}"></p>
-            <p th:text="'Email: ' + ${userDTO.email}"></p>
+            <p class="text-dark" th:text="'Name: ' + ${userDTO.firstName} + ' ' + ${userDTO.lastName}"></p>
+            <p class="text-dark" th:text="'Email: ' + ${userDTO.email}"></p>
 
         </div>
         <div class="col-3">
@@ -26,7 +26,7 @@
             <hr>
             <div th:each="role : ${userDTO.roles}">
                 <th:block th:if="${userDTO.getRoles().size() > 0}">
-                    <p class="text-center" th:text="${role.getRole().toString()}"></p>
+                    <p class="text-center text-dark" th:text="${role.getRole().toString()}"></p>
                 </th:block>
             </div>
             <th:block th:unless="${userDTO.getRoles().size() > 0}">
