@@ -33,6 +33,8 @@ public class UserEntity {
     private String email;
     @Column(nullable = false)
     private int score;
+    @Column
+    private long time;
     @ManyToMany
     private List<SeasonEntity> seasons;
     @ManyToMany
@@ -120,6 +122,15 @@ public class UserEntity {
 
     public UserEntity setScore(int score) {
         this.score = score;
+        return this;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public UserEntity setTime(long time) {
+        this.time = time;
         return this;
     }
 
