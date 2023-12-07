@@ -2,6 +2,7 @@ package com.project.bulmaze.web;
 
 import com.project.bulmaze.model.dto.*;
 import com.project.bulmaze.service.*;
+import com.project.bulmaze.utils.StopWatch;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,17 +23,20 @@ public class PlayController {
     private final UserService userService;
     private final OptionsService optionsService;
     private final ClueService clueService;
+    private final StopWatch stopWatch;
 
     public PlayController(QuestionService questionService,
                           AnswerService answerService,
                           UserService userService,
                           OptionsService optionsService,
-                          ClueService clueService) {
+                          ClueService clueService,
+                          StopWatch stopWatch) {
         this.questionService = questionService;
         this.answerService = answerService;
         this.userService = userService;
         this.optionsService = optionsService;
         this.clueService = clueService;
+        this.stopWatch = stopWatch;
     }
 
     @GetMapping("/play{userProgress}")
@@ -46,6 +50,10 @@ public class PlayController {
         List<QuestionDTO> allQuestions = this.questionService.allQuestions();
 
         if (userDTO.getUserProgress() < allQuestions.size()) {
+            if (userDTO.getUserProgress() == 1) {
+                stopWatch.start();
+            }
+
             QuestionDTO questionDTO = this.questionService.askNextQuestion(userDTO.getUserProgress() + 1, principal);
             OptionsDTO optionsDTO = this.optionsService.optionsCurrQuestion(userDTO.getUserProgress() + 1);
             ClueDTO clueDTO = this.clueService.getClue(userDTO.getUserProgress() + 1);
@@ -55,7 +63,18 @@ public class PlayController {
             model.addAttribute("question", questionDTO);
             model.addAttribute("options", optionsDTO);
             model.addAttribute("clueDTO", clueDTO);
-        } else {
+        } else if (stopWatch.isRunning()){
+            stopWatch.stop();
+            long time = stopWatch.getElapsedTimeSecs();
+            this.userService.addUserAchievementAndTime(principal.getName(), time);
+            String timeFormatted = stopWatch.getElapsedTimeFormatted();
+            model.addAttribute("time", timeFormatted);
+            return "congrats";
+        } else  {
+            long time = stopWatch.getElapsedTimeSecs();
+            this.userService.addUserAchievementAndTime(principal.getName(), time);
+            String timeFormatted = stopWatch.getElapsedTimeFormatted();
+            model.addAttribute("time", timeFormatted);
             return "congrats";
         }
         return "play";
