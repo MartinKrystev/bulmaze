@@ -2,8 +2,6 @@ package com.project.bulmaze.web;
 
 import com.project.bulmaze.model.dto.AddFaqDTO;
 import com.project.bulmaze.model.dto.EditFaqDTO;
-import com.project.bulmaze.model.dto.FirstAnswerDTO;
-import com.project.bulmaze.model.dto.UserRegisterDTO;
 import com.project.bulmaze.model.entity.FaqEntity;
 import com.project.bulmaze.service.FaqService;
 import jakarta.validation.Valid;
