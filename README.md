@@ -5,5 +5,6 @@ Programming languages, technologies, libraries and frameworks: Java, Spring boot
 BulMaze requires registration for most of the features such as scoreboard, playing the actual game, or writing a review.
 
 # Screenshots
+![bulmaze](https://github.com/MartinKrystev/bulmaze/assets/81164364/d23fe4f1-3219-4efa-99b9-e55cb4e16eff)
 
 
