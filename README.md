@@ -1,7 +1,7 @@
 # Bulmaze
 
 BulMaze is ready to use application/game with a simple and user-friendly interface, build according to the MVC pattern. 
-Programming languages, technologies, libraries and frameworks: Java, Spring boot, Thymeleaf, MySQL, JS, jQuery, Bootstrap. The app has integration with Brevo for mail support.
+Programming languages, technologies, libraries and frameworks: Java, Spring boot, Thymeleaf, MySQL, JS, jQuery, Bootstrap. The app has integration with Brevo API for mail support.
 BulMaze requires registration for most of the features such as scoreboard, playing the actual game, or writing a review.
 
 # Test Accounts
@@ -30,7 +30,8 @@ BulMaze requires registration for most of the features such as scoreboard, playi
 ![bulmaze-page7](https://github.com/MartinKrystev/bulmaze/assets/81164364/bf557ff9-7840-4984-893e-635fbc18144a)
 ![bulmaze-page9](https://github.com/MartinKrystev/bulmaze/assets/81164364/46c61d00-b5ef-4c0e-88f5-5435f672cb0c)
 ![bulmaze-page10](https://github.com/MartinKrystev/bulmaze/assets/81164364/527872dc-36da-42a2-ab9a-427ce94a8845)
-![bulmaze-page11](https://github.com/MartinKrystev/bulmaze/assets/81164364/34188070-c1e1-4339-b63c-94a09ea6c97a)
+![bulmaze-page11](https://github.com/MartinKrystev/bulmaze/assets/81164364/3eec9db7-2446-4c0e-8782-fce5e87f9772)
+
 
 
 
