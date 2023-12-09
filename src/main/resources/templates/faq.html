@@ -24,6 +24,10 @@
 <div class="container-fluid  py-5">
     <div class="container bg-blur rounded mt-3 mb-4">
         <h1 class="text-center">If you don't find the answer of your question below - contact us.</h1>
+        <th:block sec:authorize="hasRole('ADMIN')">
+            <a type="submit" class="mr-3 btn btn-success"
+               th:href="@{/faq/add}">Add new FAQ</a>
+        </th:block>
 <!--        <button onclick="loadFAQs()">Load all FAQs</button>-->
         <div class="row mt-3 mb-3">
             <div class="rounded m-auto">
