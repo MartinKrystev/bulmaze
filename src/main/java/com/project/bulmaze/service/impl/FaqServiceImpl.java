@@ -1,5 +1,6 @@
 package com.project.bulmaze.service.impl;
 
+import com.project.bulmaze.model.dto.AddFaqDTO;
 import com.project.bulmaze.model.dto.EditFaqDTO;
 import com.project.bulmaze.model.entity.FaqEntity;
 import com.project.bulmaze.repository.FaqRepository;
@@ -51,6 +52,16 @@ public class FaqServiceImpl implements FaqService {
     public void deleteFAQ(Long id) {
         Optional<FaqEntity> byId = this.faqRepository.findById(id);
         byId.ifPresent(faqEntity -> this.faqRepository.deleteById(faqEntity.getId()));
+    }
+
+    @Override
+    public boolean addNewFaq(AddFaqDTO addFaqDTO) {
+        FaqEntity toSave = new FaqEntity()
+                .setQuestion(addFaqDTO.getQuestion())
+                .setAnswer(addFaqDTO.getAnswer());
+
+        this.faqRepository.save(toSave);
+        return true;
     }
 
 }

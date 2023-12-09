@@ -1,7 +1,9 @@
 package com.project.bulmaze.web;
 
+import com.project.bulmaze.model.dto.AddFaqDTO;
 import com.project.bulmaze.model.dto.EditFaqDTO;
 import com.project.bulmaze.model.dto.FirstAnswerDTO;
+import com.project.bulmaze.model.dto.UserRegisterDTO;
 import com.project.bulmaze.model.entity.FaqEntity;
 import com.project.bulmaze.service.FaqService;
 import jakarta.validation.Valid;
@@ -31,6 +33,24 @@ public class FaqController {
         List<FaqEntity> faqEntities = this.faqService.allFaqs();
         model.addAttribute("faqEntities", faqEntities);
         return "faq";
+    }
+
+    @GetMapping("/faq/add")
+    public String getAddFAQ() {
+        return "faq-add";
+    }
+
+    @PostMapping("/faq/add")
+    public String postAddFAQ(@Valid @ModelAttribute(name = "addFaqDTO") AddFaqDTO addFaqDTO,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors() || !this.faqService.addNewFaq(addFaqDTO)) {
+            redirectAttributes.addFlashAttribute("addFaqDTO", addFaqDTO)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.addFaqDTO", bindingResult);
+            return "redirect:/faq/add";
+        }
+        return "faq-edited";
     }
 
     @GetMapping("/faq/edit{id}")
@@ -65,6 +85,10 @@ public class FaqController {
 
 
     //Model Attributes
+    @ModelAttribute(name = "addFaqDTO")
+    public AddFaqDTO initAddFaqDTO() {
+        return new AddFaqDTO();
+    }
     @ModelAttribute(name = "editFaqDTO")
     public EditFaqDTO initEditFaqDTO() {
         return new EditFaqDTO();
