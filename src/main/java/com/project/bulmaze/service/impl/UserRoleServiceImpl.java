@@ -89,7 +89,6 @@ public class UserRoleServiceImpl implements UserRoleService {
     public void deleteRoles(Long id) {
         Optional<UserEntity> optUser = this.userRepository.findById(id);
         if (optUser.isPresent()) {
-
             UserRoleEntity userRole = this.userRoleRepository
                     .findUserRoleEntityByRole(UserRoleEnum.USER).orElseThrow();
 

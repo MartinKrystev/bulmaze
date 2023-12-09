@@ -16,4 +16,5 @@ public interface UserService {
     UserScoreboardWrapperDTO getScoreboardResults();
     void addWrongAnswer(UserDTO user, AnswerDTO answer);
     void deleteUser(Long id);
+    void addUserAchievementAndTime(String username, long time);
 }
