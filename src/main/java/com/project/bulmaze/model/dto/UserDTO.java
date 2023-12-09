@@ -14,6 +14,7 @@ public class UserDTO {
     private List<GivenAnswerDTO> answers;
     private List<UserRoleDTO> roles;
     private boolean reviewSent;
+    private Long time;
 
     public Long getId() {
         return id;
@@ -121,5 +122,27 @@ public class UserDTO {
     public UserDTO setReviewSent(boolean reviewSent) {
         this.reviewSent = reviewSent;
         return this;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public UserDTO setTime(Long time) {
+        this.time = time;
+        return this;
+    }
+
+    public String getTimeFormatted() {
+        long elapsedSeconds = this.time;
+        long hours;
+        long minutes;
+        long seconds;
+
+        hours = elapsedSeconds / 3600;
+        minutes = (elapsedSeconds % 3600) / 60;
+        seconds = elapsedSeconds % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 }

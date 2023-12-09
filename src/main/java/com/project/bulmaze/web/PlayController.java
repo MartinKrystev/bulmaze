@@ -71,10 +71,9 @@ public class PlayController {
             model.addAttribute("time", timeFormatted);
             return "congrats";
         } else  {
-            long time = stopWatch.getElapsedTimeSecs();
+            long time = userDTO.getTime();
             this.userService.addUserAchievementAndTime(principal.getName(), time);
-            String timeFormatted = stopWatch.getElapsedTimeFormatted();
-            model.addAttribute("time", timeFormatted);
+            model.addAttribute("time", userDTO.getTimeFormatted());
             return "congrats";
         }
         return "play";

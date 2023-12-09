@@ -198,13 +198,8 @@ public class UserServiceImpl implements UserService {
                         .setUsername(userEntity.getUsername())
                         .setScore(userEntity.getScore())
                         .setTime(userEntity.getTime()))
-                .sorted((o1, o2) -> {
-                    int result = o2.getScore() - o1.getScore();
-                    if (result == 0) {
-                        Comparator.comparingLong(UserScoreboardDTO::getTime);
-                    }
-                    return result;
-                })
+                .sorted(Comparator.comparing(UserScoreboardDTO::getScore).reversed()
+                        .thenComparing(UserScoreboardDTO::getTime))
                 .toList();
 
         UserScoreboardWrapperDTO allWrapperDTO = new UserScoreboardWrapperDTO();

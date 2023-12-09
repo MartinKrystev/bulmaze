@@ -14,8 +14,8 @@ public class InquiryCheckScheduler {
         this.inquiryService = inquiryService;
     }
 
-//    @Scheduled(fixedRate = 10_000) //3_600_000
-    @Scheduled(cron = "* 0 13 * * *")
+    @Scheduled(fixedRate = 10_000) // currently 10 seconds --> or: 3_600_000
+//    @Scheduled(cron = "* 0 13 * * *") // at 13:00 every day
     public void sendInquiryMails() {
         this.inquiryService.sendInquiryMails();
     }
