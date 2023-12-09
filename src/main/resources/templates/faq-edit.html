@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<form th:method="POST"
+      th:action="@{/faq/save{id}(id=*{id})}"
+      th:object="${editFaqDTO}">
+    <div class="container col-6 border border-success p-2 shadow-lg rounded">
+        <div class="border border-success p-2">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="question" class="h4 mb-2">Question</label>
+            </div>
+            <textarea th:field="*{question}"
+                      th:errorclass="'is-invalid alert-danger'"
+                      type="text" class="form-control" id="question" name="question"></textarea>
+            <small th:if="${#fields.hasErrors('question')}"
+                   th:errors="*{question}"
+                   class="text-danger">error message</small>
+            <br>
+
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="answer" class="h4 mb-2">Answer</label>
+            </div>
+            <textarea th:field="*{answer}"
+                      th:errorclass="'is-invalid alert-danger'"
+                      type="text" class="form-control" id="answer" name="answer"></textarea>
+            <small th:if="${#fields.hasErrors('answer')}"
+                   th:errors="*{answer}"
+                   class="text-danger">error message</small>
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary m-2 rounded px-3">Save</button>
+            <a type="submit" class="my-3 btn btn-info"
+               th:href="@{/faq/edit{id}(id=*{id})}">Clear changes</a>
+            <a type="submit" class="my-3 mx-2 btn btn-danger"
+               th:href="@{/faq/delete{id}(id=*{id})}">Delete</a>
+        </div>
+    </div>
+</form>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+</body>
+
+</html>

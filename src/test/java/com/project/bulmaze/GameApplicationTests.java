@@ -1,4 +1,4 @@
-package com.game.game;
+package com.project.bulmaze;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
