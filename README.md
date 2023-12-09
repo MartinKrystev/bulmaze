@@ -19,7 +19,7 @@ BulMaze requires registration for most of the features such as scoreboard, playi
 
 # Screenshots
 ![bulmaze](https://github.com/MartinKrystev/bulmaze/assets/81164364/d23fe4f1-3219-4efa-99b9-e55cb4e16eff)
-![bulmaze-coverage](https://github.com/MartinKrystev/bulmaze/assets/81164364/510a87f1-2574-4c58-aca1-c66f4bf15436)
+![bulmaze-coverage](https://github.com/MartinKrystev/bulmaze/assets/81164364/101a8742-cca8-4b12-84cf-f9745e44f83e)
 ![bulmaze-page1](https://github.com/MartinKrystev/bulmaze/assets/81164364/458f8352-3caf-4547-ac57-2e812f6980f5)
 ![bulmaze-page2](https://github.com/MartinKrystev/bulmaze/assets/81164364/f43c2f26-89eb-4feb-99e1-d3d274bed144)
 ![bulmaze-page3](https://github.com/MartinKrystev/bulmaze/assets/81164364/a8b16e56-58aa-43f3-9365-f308ad460f17)
