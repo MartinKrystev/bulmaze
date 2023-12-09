@@ -7,11 +7,11 @@ BulMaze requires registration for most of the features such as scoreboard, playi
 # Test Accounts
 **Administrator:** 
 
-  **admin** p: **testpass**
+- **admin** p: **testpass**
 
 **Common User:** 
 
-  **user** p: **testpass**
+- **user** p: **testpass**
 
 # Screenshots
 ![bulmaze](https://github.com/MartinKrystev/bulmaze/assets/81164364/d23fe4f1-3219-4efa-99b9-e55cb4e16eff)
