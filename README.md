@@ -9,6 +9,10 @@ BulMaze requires registration for most of the features such as scoreboard, playi
 
 - u: **admin** p: **testpass**
 
+**Moderator:**
+
+- u: **moderator** p: **testpass**
+
 **Common User:** 
 
 - u: **user** p: **testpass**
