@@ -6,6 +6,7 @@ BulMaze requires registration for most of the features such as scoreboard, playi
 
 # Test Accounts
 **Administrator:** u:admin p:testpass
+
 **Common User:** u:user p:testpass
 
 # Screenshots
