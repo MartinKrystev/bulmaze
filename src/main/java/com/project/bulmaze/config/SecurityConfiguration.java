@@ -1,5 +1,6 @@
 package com.project.bulmaze.config;
 
+import com.project.bulmaze.model.enums.UserRoleEnum;
 import com.project.bulmaze.repository.UserRepository;
 import com.project.bulmaze.service.impl.ApplicationUserDetailsService;
 import org.modelmapper.ModelMapper;
@@ -27,6 +28,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/", "/users/register", "/users/login", "/users/login-error", "/users/logout").permitAll()
                                 .requestMatchers("/index", "/about", "/faq", "/contact", "/how-to-play","reviews").permitAll()
                                 .requestMatchers("/error").permitAll()
+                                .requestMatchers("/roles-show").hasRole(UserRoleEnum.ADMIN.name())
                                 .anyRequest().authenticated()
                 ).formLogin(
                         formLogin -> {
