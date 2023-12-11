@@ -1,5 +1,6 @@
 package com.project.bulmaze.service.impl;
 
+import com.project.bulmaze.model.dto.AddFaqDTO;
 import com.project.bulmaze.model.dto.EditFaqDTO;
 import com.project.bulmaze.model.entity.FaqEntity;
 import com.project.bulmaze.repository.FaqRepository;
@@ -65,6 +66,14 @@ public class FaqServiceImplTest {
         this.testFaqService.saveEditedFAQ(testFaqDTO);
 
         Assertions.assertTrue(this.testFaqService.saveEditedFAQ(testFaqDTO));
+    }
+
+    @Test
+    public void testAddNewFaq() {
+        AddFaqDTO addFaqDTO = new AddFaqDTO()
+                .setQuestion("testQuestion")
+                .setAnswer("testAnswer");
+        this.testFaqService.addNewFaq(addFaqDTO);
     }
 
     @Test
