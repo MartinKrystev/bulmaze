@@ -68,4 +68,16 @@ public class DTOTests {
 
         Assertions.assertEquals("testUsername", userLoginDTO.getUsername());
     }
+
+    @Test
+    public void testUserDTO() {
+        UserDTO userDTO = new UserDTO()
+                .setId(1L)
+                .setCountry("Bulgaria")
+                .setReviewSent(true);
+
+        Assertions.assertEquals(1l, userDTO.getId());
+        Assertions.assertEquals("Bulgaria", userDTO.getCountry());
+        Assertions.assertTrue( userDTO.isReviewSent());
+    }
 }
