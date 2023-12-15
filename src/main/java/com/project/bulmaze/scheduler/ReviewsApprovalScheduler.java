@@ -16,8 +16,7 @@ public class ReviewsApprovalScheduler {
     }
 
     // DEFAULT: Every hour approves the reviews 3_600_000
-    // Testing: Every 10 seconds approves the reviews 10_000
-    @Scheduled(fixedRate = 10_000)
+    @Scheduled(fixedRate = 3_600_000)
     public void approveReviews() {
         this.reviewService.approveReviews();
     }
