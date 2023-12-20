@@ -11,6 +11,12 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class UserEntity {
+    //TODO:
+    // country feature to be added
+    // validation for the existing user and appropriate message
+    // correct implementation of the time counter
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
