@@ -83,11 +83,26 @@
         <h2 class="m-0 text-primary">BulMaze</h2>
     </a>
 
-<!--    Greeting only if there is logged-in User-->
+    <!--    Greeting only if there is logged-in User-->
     <th:block>
         <th:block th:if="${#authentication.name != 'anonymousUser'}">
             <i class="fa-solid fa-user" style="color: #0a0a0a"></i>
             <p th:text="${#authentication.name}" class="my-4 m-lg-2 text-dark"></p>
+
+            <!--            User has paid for the game-->
+            <th:block th:if="${#authentication.principal.hasPaid}">
+                <div class="border border-success rounded-3">
+                    <p class="my-4 m-lg-2 text-success">Purchase successful!</p>
+                </div>
+            </th:block>
+
+            <!--            User hasn't paid for the game-->
+            <th:block th:unless="${#authentication.principal.hasPaid}">
+                <div class="border border-warning rounded-3">
+                    <p class="my-4 m-lg-2 text-warning">Purchase required!</p>
+                </div>
+            </th:block>
+
         </th:block>
     </th:block>
 
