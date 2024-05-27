@@ -55,6 +55,8 @@ public class UserEntity {
     private List<GivenAnswerEntity> givenAnswers;
     @Column(name = "review_sent")
     private boolean reviewSent;
+    @Column(name = "has_paid")
+    private Boolean hasPaid;
 
     public UserEntity() {
     }
@@ -215,6 +217,15 @@ public class UserEntity {
 
     public UserEntity setReviewSent(boolean reviewSent) {
         this.reviewSent = reviewSent;
+        return this;
+    }
+
+    public Boolean isHasPaid() {
+        return hasPaid;
+    }
+
+    public UserEntity setHasPaid(Boolean hasPaid) {
+        this.hasPaid = hasPaid;
         return this;
     }
 
