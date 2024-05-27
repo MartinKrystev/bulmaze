@@ -49,6 +49,12 @@ public class PlayController {
         UserDTO userDTO = this.userService.findByUsername(principal.getName());
         List<QuestionDTO> allQuestions = this.questionService.allQuestions();
 
+        //check for completed payment
+        if (!userDTO.isHasPaid()) {
+            return "redirect:/checkout";
+        }
+
+        //check for finished game
         if (userDTO.getUserProgress() < allQuestions.size()) {
             if (userDTO.getUserProgress() == 1) {
                 stopWatch.start();
