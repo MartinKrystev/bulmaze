@@ -70,11 +70,12 @@ public class UserServiceImpl implements UserService {
                 .setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()))
                 .setScore(0)
                 .setUserProgress(0L)
-                .setRoles(List.of(userRole));
+                .setRoles(List.of(userRole))
+                .setHasPaid(false);
 
         this.userRepository.save(user);
-        //TODO: send mail for NEW registration:
-        NewUserEmailSender.newUserRegisteredEmail();
+        //TODO: sending mail for NEW registration:
+//        NewUserEmailSender.newUserRegisteredEmail();
         return true;
     }
 
@@ -151,6 +152,13 @@ public class UserServiceImpl implements UserService {
         currAchievements.add(achievement);
         user.setAchievements(currAchievements);
         user.setTime(time);
+        this.userRepository.save(user);
+    }
+
+    @Override
+    public void userPaidSuccessfully(UserDTO userDTO) {
+        UserEntity user = this.userRepository.findByUsername(userDTO.getUsername()).get();
+        user.setHasPaid(true);
         this.userRepository.save(user);
     }
 
