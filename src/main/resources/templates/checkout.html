@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{fragments/commons::head}"/>
+
+<body>
+
+<th:block th:replace="~{fragments/commons::topbar}"/>
+
+<th:block th:replace="~{fragments/commons::navbar}"/>
+
+<form class="container"
+      th:action='@{/charge}'
+      th:method='POST'
+      id='checkout-form'>
+
+    <div class="row text-center mt-5">
+        <p class="text-dark">In order to play BulMaze, you first have to purchase the game!</p>
+    </div>
+
+    <div class="row text-center">
+
+        <div class="justify-content-center text-dark">
+            <input type='hidden' th:value='${amount}' name='amount'/>
+            <!--example: 3000 cents to 30 EUR-->
+            <label>Price: <span th:text='${amount / 100}'/></label>
+            <span th:text="${currency}"></span>
+
+            <script
+                    src='https://checkout.stripe.com/checkout.js'
+                    class='stripe-button'
+                    th:attr='data-key=${stripePublicKey},
+                data-amount=${amount},
+                data-currency=${currency}'
+                    data-name='STRIPE'
+                    data-description='Spring test checkout'
+                    data-image
+                            ='https://www.baeldung.com/wp-content/themes/baeldung/favicon/android-chrome-192x192.png'
+                    data-locale='auto'
+                    data-zip-code='false'>
+            </script>
+        </div>
+
+    </div>
+
+</form>
+
+<th:block th:replace="~{fragments/commons::scripts}"></th:block>
+</body>
+</html>
