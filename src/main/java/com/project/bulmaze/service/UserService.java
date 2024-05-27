@@ -17,4 +17,6 @@ public interface UserService {
     void addWrongAnswer(UserDTO user, AnswerDTO answer);
     void deleteUser(Long id);
     void addUserAchievementAndTime(String username, long time);
+    void userPaidSuccessfully(UserDTO userDTO);
+
 }
