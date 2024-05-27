@@ -6,16 +6,23 @@ BulMaze requires registration for most of the features such as scoreboard, playi
 
 # Test Accounts
 **Administrator:** 
-
 - u: **admin** p: **testpass**
 
 **Moderator:**
-
 - u: **moderator** p: **testpass**
 
 **Common User:** 
-
 - u: **user** p: **testpass**
+
+# Stripe Test Cards
+**Payment succeeds:**
+- 4242 4242 4242 4242
+
+**Payment requires authentication**
+- 4000 0025 0000 3155
+
+**Payment is declined - "insufficient funds"**
+- 4000 0000 0000 9995
 
 # Screenshots
 ![bulmaze](https://github.com/MartinKrystev/bulmaze/assets/81164364/d23fe4f1-3219-4efa-99b9-e55cb4e16eff)
