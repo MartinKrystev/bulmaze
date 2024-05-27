@@ -36,7 +36,8 @@ public class ApplicationUserDetailsService implements UserDetailsService {
                 userEntity.getPassword(),
                 extractAuthorities(userEntity))
                 .setCountry(userEntity.getCountry())
-                .setFullName(userEntity.getFirstName() + " " + userEntity.getLastName());
+                .setFullName(userEntity.getFirstName() + " " + userEntity.getLastName())
+                .setHasPaid(userEntity.isHasPaid());
     }
 
     private static List<GrantedAuthority> extractAuthorities(UserEntity userEntity) {
