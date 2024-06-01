@@ -18,10 +18,10 @@ BulMaze requires registration for most of the features such as scoreboard, playi
 **Payment succeeds:**
 - 4242 4242 4242 4242
 
-**Payment requires authentication**
+**Payment requires authentication:**
 - 4000 0025 0000 3155
 
-**Payment is declined - "insufficient funds"**
+**Payment is declined - "insufficient funds":**
 - 4000 0000 0000 9995
 
 # Screenshots
